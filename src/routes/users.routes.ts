@@ -1,9 +1,7 @@
-import { Router, Request, Response } from 'express';
-
+import { Router } from 'express';
+import usersController from '../controllers/users.controller'
 const usersRouter = Router();
 
-usersRouter.get('/teste', (req: Request, res: Response) => {
-    return res.json("OK");
-});
+usersRouter.get('/teste',usersController.GetInit);
 
 export default usersRouter;

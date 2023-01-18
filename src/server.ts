@@ -1,10 +1,10 @@
 import express from 'express'
-import { Router, Request, Response } from 'express';
 import Routes from './routes/routes'
+import * as dotenv from 'dotenv'
 
-
+dotenv.config()
 const app = express();
-const PORT = 3000
+const PORT = process.env.PORT
 
 app.use(express.json())
 app.use(Routes)
