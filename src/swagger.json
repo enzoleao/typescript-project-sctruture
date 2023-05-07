@@ -381,7 +381,7 @@
             "avatar": {
               "description": "Avatar do usuario.",
               "type": "string",
-              "example": "http://localhost:3000/1683069498402.jpeg"
+              "example": null
             }
           }
         },
