@@ -133,7 +133,7 @@
                         "name": "userId",
                         "schema": {
                             "items": {
-                                "type": "integer"
+                                "type": "string"
                             }
                         }
                     }
@@ -159,8 +159,8 @@
                             }
                         }
                     },
-                    "401": {
-                        "description": "Email ou senha incorreta."
+                    "400": {
+                        "description": "Imagem não enviada."
                     },
                     "500": {
                         "description": "Erro no servidor."
@@ -362,9 +362,9 @@
                 "properties": {
                     "id": {
                         "description": "Identificador do usuário criado.",
-                        "type": "number",
-                        "format": "id",
-                        "example": 2
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
                     },
                     "name": {
                         "description": "Nome completo do usuário criado.",
@@ -379,7 +379,7 @@
                     "avatar": {
                         "description": "Avatar do usuario.",
                         "type": "string",
-                        "example": "http://localhost:3000/1683069498402.jpeg"
+                        "example": null
                     }
                 }
             },
@@ -409,9 +409,9 @@
                         "type": "object",
                         "properties": {
                             "id": {
-                                "type": "number",
+                                "type": "string",
                                 "description": "Identificador do usuário",
-                                "example": 1
+                                "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
                             },
                             "name": {
                                 "type": "string",
@@ -427,6 +427,11 @@
                                 "type": "string",
                                 "description": "Avatar do usuário",
                                 "example": "http://localhost:3000/public/1683069498402.jpeg"
+                            },
+                            "birthday": {
+                                "type": "string",
+                                "description": "Data de nascimento do usuário",
+                                "example": "2011-10-05T14:48:00.000Z"
                             }
                         }
                     },
@@ -442,7 +447,7 @@
                 "properties": {
                     "avatar": {
                         "type": "file",
-                        "description": "Imagem para ser enviada"
+                        "description": "Imagem de avatar para ser enviada"
                     }
                 },
                 "required": [
@@ -453,9 +458,9 @@
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": "number",
+                        "type": "string",
                         "description": "Identificador unico do usuário que teve o avatar alterado",
-                        "example": 1
+                        "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
                     },
                     "avatar": {
                         "type": "string",
@@ -490,6 +495,12 @@
                         "description": "Email do usuário",
                         "format": "string",
                         "example": "enzopinheiro6@gmail.com"
+                    },
+                    "birthday": {
+                        "type": "string",
+                        "description": "Email do usuário",
+                        "format": "string",
+                        "example": "2011-10-05T14:48:00.000Z"
                     }
                 }
             },
