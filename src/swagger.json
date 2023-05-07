@@ -364,9 +364,9 @@
           "properties": {
             "id": {
               "description": "Identificador do usuário criado.",
-              "type": "number",
-              "format": "id",
-              "example": 2
+              "type": "string",
+              "format": "uuid",
+              "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
             },
             "name": {
               "description": "Nome completo do usuário criado.",
