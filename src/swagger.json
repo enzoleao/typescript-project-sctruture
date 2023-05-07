@@ -411,9 +411,9 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "type": "number",
+                  "type": "string",
                   "description": "Identificador do usuário",
-                  "example": 1
+                  "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
                 },
                 "name": {
                   "type": "string",
