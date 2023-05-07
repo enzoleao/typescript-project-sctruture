@@ -1,7 +1,12 @@
 import { Router } from 'express';
-import usersController from '../controllers/users.controller'
-const usersRouter = Router();
+import { CreateUserController } from '../modules/Users/useCases/createUser/createUser.controller';
 
-usersRouter.get('/teste',usersController.GetInit);
+
+
+const usersRouter = Router();
+const createUserController = new CreateUserController()
+
+usersRouter.post('/', createUserController.handle);
+
 
 export default usersRouter;

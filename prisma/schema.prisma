@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    String     @id @default(uuid())
+  avatar String?
+  email String  @unique
+  name  String
+  birthday DateTime
+  password String 
+  memories Memory[] 
+  participatedMamories UsersInMemories[]
+  stickyNotes StickyNotes[]
+}
+
+model Memory {
+  id        Int     @id @default(autoincrement())
+  name   String
+  authorId  String @map("author_id")
+  location Location[]
+  media Medias[]
+  reflections Reflections[]
+  memoryParticipants UsersInMemories[]
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  author    User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model UsersInMemories {
+  userId String   @map("user_id")
+  memoryId Int @map("memory_id")
+
+  memory       Memory     @relation(fields: [memoryId], references: [id], onDelete: Cascade)
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@id([userId, memoryId])
+
+  @@map("users_in_memories")
+}
+
+model Medias {
+   id Int @id @default(autoincrement())
+   src String
+   memoryId Int @map("memory_id")
+
+   memory   Memory @relation(fields: [memoryId], references: [id], onDelete: Cascade)
+}
+
+model Reflections {
+  id Int @id @default(autoincrement())
+  content String
+  memoryId Int @map("memory_id")
+
+  memory   Memory @relation(fields: [memoryId], references: [id], onDelete: Cascade)
+}
+
+model Location {
+  id Int @id @default(autoincrement())
+  state String
+  country String
+  memoryId Int @map("memory_id")
+
+  memory   Memory @relation(fields: [memoryId], references: [id])
+}
+
+model StickyNotes {
+  id Int @id @default(autoincrement())
+  content String
+  authorId String @map("author_id")
+  createdAt DateTime @default(now()) @map("created_at")  
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+   @@map("sticky_notes")
+}
