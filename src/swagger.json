@@ -159,8 +159,8 @@
                 }
               }
             },
-            "401": {
-              "description": "Email ou senha incorreta."
+            "400": {
+              "description": "Imagem não enviada."
             },
             "500": {
               "description": "Erro no servidor."
@@ -462,7 +462,7 @@
             "id": {
               "type": "string",
               "description": "Identificador unico do usuário que teve o avatar alterado",
-              "example": 1
+              "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
             },
             "avatar": {
               "type": "string",
