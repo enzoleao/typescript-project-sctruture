@@ -15,7 +15,7 @@ model User {
   avatar String?
   email String  @unique
   name  String
-  birthday DateTime
+  birthday DateTime @default(now())
   password String 
   memories Memory[] 
   participatedMamories UsersInMemories[]
