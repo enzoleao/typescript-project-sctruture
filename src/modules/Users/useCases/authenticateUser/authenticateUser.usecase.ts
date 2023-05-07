@@ -9,7 +9,7 @@ interface LoginTypes {
 }
 interface LoginResponse {
     user: {
-      id: number,
+      id: string,
       name: string | null
       email: string 
       avatar: string | null

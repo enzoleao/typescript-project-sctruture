@@ -17,7 +17,7 @@ export class AllMemoriesCurrentUserController {
         const payload = Buffer.from(String(base64Token), 'base64').toString();
         const id = JSON.parse(payload).sub;
 
-        const getAllMemories = await getMemoriesCurrentUser.execute(parseInt(id))
+        const getAllMemories = await getMemoriesCurrentUser.execute(id)
         
         return res.json(getAllMemories)
 

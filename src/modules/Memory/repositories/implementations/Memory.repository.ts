@@ -18,7 +18,7 @@ export class MemoryRepository implements IMemoryRepository {
         return response
 
     }
-    async findList(id: number): Promise<any | null> { 
+    async findList(id: string): Promise<any | null> { 
         const response = await prisma.memory.findMany({
             where: {
                 authorId: id
@@ -31,7 +31,7 @@ export class MemoryRepository implements IMemoryRepository {
                 reflections: true,
             }
         })
-        return await Promise.all (response.map  (async (i)=>{
+        return await Promise.all (response.map  (async (i: any)=>{
             const response = await prisma.usersInMemories.findMany({
                 where: {
                     memoryId:i.id
@@ -43,7 +43,7 @@ export class MemoryRepository implements IMemoryRepository {
             return {
                 id: i.id,
                 name: i.name,
-                usersInMemory: response.map((i)=>{
+                usersInMemory: response.map((i: any)=>{
                     return{ 
                     id: i.user.id,
                     name: i.user.name,
@@ -51,13 +51,13 @@ export class MemoryRepository implements IMemoryRepository {
                     email:i.user.email,
                 }
                 }),
-                reflections: i.reflections.map((i)=>{
+                reflections: i.reflections.map((i: any)=>{
                     return {
                         id: i.id,
                         content: i.content,
                     }
                 }),
-                media: i.media.map((i)=>{
+                media: i.media.map((i: any)=>{
                     return {
                         id: i.id,
                         src: `${process.env.PROTOCOL}://${process.env.HOST}/${i.src}`

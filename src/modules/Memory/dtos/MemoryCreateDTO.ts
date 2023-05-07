@@ -1,4 +1,4 @@
 export interface MemoryCreateDTO {
-    authorId: number,
+    authorId: string,
     name: string,
 }

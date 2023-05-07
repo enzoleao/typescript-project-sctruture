@@ -1,6 +1,6 @@
 import { AppError } from "../err/AppError";
 
-export const getIdFromToken = async (authorization: string) => {
+export const getIdFromToken = async (authorization: any) => {
     const token = authorization?.split(' ')[1]
 
     if (!token) {
