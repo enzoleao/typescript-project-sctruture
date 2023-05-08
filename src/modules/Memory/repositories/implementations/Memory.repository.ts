@@ -6,7 +6,6 @@ import { MemoryCreateDTO } from "../../dtos/MemoryCreateDTO";
 
 
 export class MemoryRepository implements IMemoryRepository {
-    
     async create(memory: MemoryCreateDTO): Promise<any> {
 
         const response = await prisma.memory.create({
@@ -69,7 +68,16 @@ export class MemoryRepository implements IMemoryRepository {
             }
         }))
     }
-    async delete(memoryId: any): Promise<any> {
+    async delete({ memoryId }: any): Promise<any> {
+
+        const response = await prisma.memory.delete({
+            where: {
+                id: memoryId
+            }
+        })
+        return response
+    }
+    async update(memoryId: any): Promise<any> {
         throw new Error("Method not implemented.");
     }
 }

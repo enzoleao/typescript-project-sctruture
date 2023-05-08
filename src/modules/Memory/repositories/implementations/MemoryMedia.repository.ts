@@ -6,7 +6,6 @@ import fs from 'fs'
 export class CreateMemoryMedia implements IMemoryMediaRepository {
     
     async create(data:MemoryCreateMediaDTO): Promise<any | null> {
-        console.log(data.medias)
         const createdRecord =  await prisma.medias.createMany({
             data: data.medias.map((i: any) => {            
                 return {

@@ -75,7 +75,17 @@ class MemoryRepository {
             })));
         });
     }
-    delete(memoryId) {
+    delete({ memoryId }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield prisma_1.prisma.memory.delete({
+                where: {
+                    id: memoryId
+                }
+            });
+            return response;
+        });
+    }
+    update(memoryId) {
         return __awaiter(this, void 0, void 0, function* () {
             throw new Error("Method not implemented.");
         });

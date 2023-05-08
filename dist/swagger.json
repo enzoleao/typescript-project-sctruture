@@ -139,7 +139,7 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "Dados necessários para cadastro de um usuário",
+                    "description": "Dados necessários para alteração do avatar de um usuário",
                     "content": {
                         "multipart/form-data": {
                             "schema": {
@@ -170,7 +170,7 @@
         },
         "/memories": {
             "get": {
-                "description": "Retorna todos as memórias do usuário autenticado.",
+                "description": "Retorna todas as memórias do usuário autenticado.",
                 "tags": [
                     "Memorias"
                 ],
@@ -209,7 +209,7 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "Dados necessários para cadastro de um usuário",
+                    "description": "Dados necessários para cadastro de uma memória",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -231,6 +231,48 @@
                     },
                     "401": {
                         "description": "Token inválido ou expirado."
+                    },
+                    "500": {
+                        "description": "Erro no servidor."
+                    }
+                }
+            }
+        },
+        "/memories/{memoryId}": {
+            "delete": {
+                "description": "Deleta uma memória.",
+                "tags": [
+                    "Memorias"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "memoryId",
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Memória deletada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeleteMemoryMediaResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Imagem não localizada."
                     },
                     "500": {
                         "description": "Erro no servidor."
@@ -508,7 +550,7 @@
                         "type": "number",
                         "description": "Identificador unico da memória",
                         "format": "number",
-                        "example": "1"
+                        "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
                     },
                     "name": {
                         "type": "string",
@@ -555,7 +597,7 @@
                             "id": {
                                 "type": "number",
                                 "description": "Identificador do usuário",
-                                "example": 1
+                                "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
                             },
                             "name": {
                                 "type": "string",
@@ -575,8 +617,8 @@
                         },
                         "example": [
                             {
-                                "id": 1,
-                                "content": "Enzo"
+                                "id": "eb51ab14-8e56-4170-87c8-436fca6a8312",
+                                "content": "Boas lembranças"
                             }
                         ]
                     },
@@ -596,7 +638,7 @@
                         },
                         "example": [
                             {
-                                "id": 1,
+                                "id": "eb51ab14-8e56-4170-87c8-436fca6a8312",
                                 "src": "http://localhost:3001/public/1683317414920.jpeg"
                             }
                         ]
@@ -631,10 +673,17 @@
                     "usersInMemory": {
                         "type": "array",
                         "format": "array",
-                        "example": [1, 2, 3],
+                        "example": [
+                            "eb51ab14-8e56-4170-87c8-436fca6a8312",
+                            "eb51ab14-8e56-4170-87c8-436fca6a8312",
+                            "eb51ab14-8e56-4170-87c8-436fca6a8312"
+                        ],
                         "description": "Array com os Identificadores únicos dos usuarios que estão presente na memória"
                     }
-                }
+                },
+                "required": [
+                    "name"
+                ]
             },
             "CreateMemoryResponse": {
                 "type": "object",
@@ -642,7 +691,7 @@
                     "id": {
                         "type": "number",
                         "format": "number",
-                        "example": 1
+                        "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
                     },
                     "name": {
                         "type": "string",

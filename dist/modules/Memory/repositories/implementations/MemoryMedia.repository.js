@@ -18,7 +18,6 @@ const fs_1 = __importDefault(require("fs"));
 class CreateMemoryMedia {
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(data.medias);
             const createdRecord = yield prisma_1.prisma.medias.createMany({
                 data: data.medias.map((i) => {
                     return {
