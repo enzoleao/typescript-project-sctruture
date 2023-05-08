@@ -23,7 +23,7 @@ model User {
 }
 
 model Memory {
-  id        Int     @id @default(autoincrement())
+  id        String     @id @default(uuid())
   name   String
   authorId  String @map("author_id")
   location Location[]
@@ -37,7 +37,7 @@ model Memory {
 
 model UsersInMemories {
   userId String   @map("user_id")
-  memoryId Int @map("memory_id")
+  memoryId String @map("memory_id")
 
   memory       Memory     @relation(fields: [memoryId], references: [id], onDelete: Cascade)
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -47,17 +47,17 @@ model UsersInMemories {
 }
 
 model Medias {
-   id Int @id @default(autoincrement())
+   id String @id @default(uuid())
    src String
-   memoryId Int @map("memory_id")
+   memoryId String @map("memory_id")
 
    memory   Memory @relation(fields: [memoryId], references: [id], onDelete: Cascade)
 }
 
 model Reflections {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   content String
-  memoryId Int @map("memory_id")
+  memoryId String @map("memory_id")
 
   memory   Memory @relation(fields: [memoryId], references: [id], onDelete: Cascade)
 }
@@ -66,13 +66,13 @@ model Location {
   id Int @id @default(autoincrement())
   state String
   country String
-  memoryId Int @map("memory_id")
+  memoryId String @map("memory_id")
 
   memory   Memory @relation(fields: [memoryId], references: [id])
 }
 
 model StickyNotes {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   content String
   authorId String @map("author_id")
   createdAt DateTime @default(now()) @map("created_at")  

@@ -5,8 +5,8 @@ import { AddPeopleInMemoryDTO } from "../../dtos/AddPeopleInMemoryDTO";
 
 export class AddPeopleInMemoryRepository implements IAddPeopleInMemoryRepository {
     
-    async create({ userId, memoryId }:AddPeopleInMemoryDTO): Promise<any | null> {
-        
+    async create({ userId, memoryId }:AddPeopleInMemoryDTO): Promise<any | null> { 
+
         const response =  await prisma.usersInMemories.createMany({
              data: userId.map((i: any) => {            
                  return {
@@ -32,7 +32,7 @@ export class AddPeopleInMemoryRepository implements IAddPeopleInMemoryRepository
                 userId: {
                     in: idsUsersNumber
                 },
-                memoryId: parseInt(memoryId)
+                memoryId: memoryId
             }
         })
         return {

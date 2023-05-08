@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const addPeopleInMemory_controller_1 = require("../modules/Memory/useCase/addPeoplesInMemory/addPeopleInMemory.controller");
+const removePeopleInMemory_controller_1 = require("../modules/Memory/useCase/removePeopleInMemory/removePeopleInMemory.controller");
+const usersInMemory = (0, express_1.Router)();
+const addPeopleInMemory = new addPeopleInMemory_controller_1.addPeopleInMemoryController();
+const removePeopleInMemory = new removePeopleInMemory_controller_1.RemovePeopleInMemoryController();
+usersInMemory.post('/', addPeopleInMemory.handle);
+usersInMemory.delete('/:memoryId/:userId', removePeopleInMemory.handle);
+exports.default = usersInMemory;

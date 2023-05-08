@@ -16,7 +16,7 @@ class DeleteMemoryMediaController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const deleteMemoryMedia = new deleteMediasMemory_usecase_1.DeleteMemoryMediaUseCase(new MemoryMedia_repository_1.CreateMemoryMedia);
-            const { memoryId } = req.query;
+            const { memoryId } = req.params;
             const response = yield deleteMemoryMedia.execute({ memoryId });
             return res.json(response);
         });

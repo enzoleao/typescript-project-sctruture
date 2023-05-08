@@ -6,7 +6,7 @@ export class DeleteMemoryMediaController {
     async handle (req: Request, res: Response): Promise<Response> {
         const deleteMemoryMedia = new DeleteMemoryMediaUseCase(new CreateMemoryMedia)
         
-        const { memoryId } = req.query
+        const { memoryId } = req.params
         
         const response = await deleteMemoryMedia.execute({ memoryId })
         return res.json(response)

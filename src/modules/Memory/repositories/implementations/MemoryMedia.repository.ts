@@ -1,4 +1,4 @@
-import { Medias, Prisma } from "@prisma/client";
+
 import { prisma } from "../../../../prisma";
 import { MemoryCreateMediaDTO } from '../../dtos/MemoryCreateMediaDTO'
 import { IMemoryMediaRepository } from '../MemoryMedia.repository'
@@ -6,10 +6,11 @@ import fs from 'fs'
 export class CreateMemoryMedia implements IMemoryMediaRepository {
     
     async create(data:MemoryCreateMediaDTO): Promise<any | null> {
+        console.log(data.medias)
         const createdRecord =  await prisma.medias.createMany({
             data: data.medias.map((i: any) => {            
                 return {
-                    memoryId: parseInt(data.memoryId),
+                    memoryId: data.memoryId,
                     src: i.filename,
                 }
             })
@@ -21,29 +22,23 @@ export class CreateMemoryMedia implements IMemoryMediaRepository {
     }
     async delete({ memoryId }: any): Promise<any> {
 
-        const uniqueMemory = memoryId.length <= 1 ? memoryId.split("") : memoryId
-        const memoryIdsNumber = uniqueMemory.map(Number)
-        const memoriesName = await prisma.medias.findMany({
+        
+        const memoriesName = await prisma.medias.findUnique({
             where:{
-                id:{
-                    in: memoryIdsNumber
-                }
+                id: memoryId
             }
         })
-        memoriesName.map((i)=>{
-            fs.unlink(`./public/${i.src}`, (err) => {})
-        })
+        
+            fs.unlink(`./public/${memoriesName?.src}`, (err) => {})
+        
         const deletedRecords = await prisma.medias.deleteMany({
             where:{
-                id:{
-                    in: memoryIdsNumber
-                }
+                id: memoryId
             }
         })
         return {
-            medias: memoryIdsNumber,
-            mediasDeleteSucess: deletedRecords.count,
-            message:"Imagens deletadas com sucesso"
+            medias: memoryId,
+            message:"Imagem deletada com sucesso"
         }
     }
 }

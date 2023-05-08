@@ -38,7 +38,7 @@ class AddPeopleInMemoryRepository {
                     userId: {
                         in: idsUsersNumber
                     },
-                    memoryId: parseInt(memoryId)
+                    memoryId: memoryId
                 }
             });
             return {

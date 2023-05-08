@@ -18,10 +18,11 @@ const fs_1 = __importDefault(require("fs"));
 class CreateMemoryMedia {
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(data.medias);
             const createdRecord = yield prisma_1.prisma.medias.createMany({
                 data: data.medias.map((i) => {
                     return {
-                        memoryId: parseInt(data.memoryId),
+                        memoryId: data.memoryId,
                         src: i.filename,
                     };
                 })
@@ -34,29 +35,20 @@ class CreateMemoryMedia {
     }
     delete({ memoryId }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const uniqueMemory = memoryId.length <= 1 ? memoryId.split("") : memoryId;
-            const memoryIdsNumber = uniqueMemory.map(Number);
-            const memoriesName = yield prisma_1.prisma.medias.findMany({
+            const memoriesName = yield prisma_1.prisma.medias.findUnique({
                 where: {
-                    id: {
-                        in: memoryIdsNumber
-                    }
+                    id: memoryId
                 }
             });
-            memoriesName.map((i) => {
-                fs_1.default.unlink(`./public/${i.src}`, (err) => { });
-            });
+            fs_1.default.unlink(`./public/${memoriesName === null || memoriesName === void 0 ? void 0 : memoriesName.src}`, (err) => { });
             const deletedRecords = yield prisma_1.prisma.medias.deleteMany({
                 where: {
-                    id: {
-                        in: memoryIdsNumber
-                    }
+                    id: memoryId
                 }
             });
             return {
-                medias: memoryIdsNumber,
-                mediasDeleteSucess: deletedRecords.count,
-                message: "Imagens deletadas com sucesso"
+                medias: memoryId,
+                message: "Imagem deletada com sucesso"
             };
         });
     }

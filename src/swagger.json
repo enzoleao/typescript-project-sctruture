@@ -168,9 +168,9 @@
           }
         }
       },
-      "/memory/memories": {
+      "/memories": {
         "get": {
-          "description": "Autentica o usuário na aplicação.",
+          "description": "Retorna todos as memórias do usuário autenticado.",
           "tags": [
             "Memorias"
           ],
@@ -197,11 +197,9 @@
               "description": "Erro no servidor."
             }
           }
-        }
-      },
-      "/memory/create": {
+        },
         "post": {
-          "description": "Cria uma memória para o usuário.",
+          "description": "Criação de memória do usuário.",
           "tags": [
             "Memorias"
           ],
@@ -211,7 +209,7 @@
             }
           ],
           "requestBody": {
-            "description": "O usuário cria uma memória para deixa-la",
+            "description": "Dados necessários para cadastro de um usuário",
             "content": {
               "application/json": {
                 "schema": {
@@ -222,7 +220,7 @@
           },
           "responses": {
             "200": {
-              "description": "Login realizado com sucesso.",
+              "description": "Memoria criada com sucesso.",
               "content": {
                 "application/json": {
                   "schema": {
@@ -232,7 +230,7 @@
               }
             },
             "401": {
-              "description": "Token missing or invalid."
+              "description": "Token inválido ou expirado."
             },
             "500": {
               "description": "Erro no servidor."
@@ -240,9 +238,9 @@
           }
         }
       },
-      "/memory/medias": {
+      "/medias": {
         "post": {
-          "description": "Autentica o usuário na aplicação.",
+          "description": "O usuário adiciona medias à sua lembrança ex: fotos e videos.",
           "tags": [
             "Memorias"
           ],
@@ -282,9 +280,9 @@
           }
         }
       },
-      "/memory/medias/": {
+      "/medias/{mediaId}": {
         "delete": {
-          "description": "Autentica o usuário na aplicação.",
+          "description": "Delete mídia de uma memória.",
           "tags": [
             "Memorias"
           ],
@@ -295,19 +293,18 @@
           ],
           "parameters":[
             {
-              "in":"query",
-              "name":"memoryId",
+              "in":"path",
+              "name":"mediaId",
               "schema":{
-                "type":"array",
                 "items": {
-                  "type":"integer"
+                  "type":"string"
                 }
               }
             }
           ],
           "responses": {
             "200": {
-              "description": "Medias deletadas com suce subidas resposta.",
+              "description": "Mídia deletada com sucesso.",
               "content": {
                 "application/json": {
                   "schema": {
@@ -317,7 +314,7 @@
               }
             },
             "400": {
-              "description": "Ocorreu algum erro."
+              "description": "Imagem não localizada."
             },
             "500": {
               "description": "Erro no servidor."
@@ -325,7 +322,6 @@
           }
         }
       }
-      
     },
     "components": {
       "schemas": {
@@ -526,9 +522,9 @@
               "type": "array",
               "properties": {
                 "id": {
-                  "type": "number",
+                  "type": "string",
                   "description": "Identificador do usuário",
-                  "example": 1
+                  "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
                 },
                 "name": {
                   "type": "string",
@@ -548,7 +544,7 @@
               },
               "example":[
                 {
-                  "id":2,
+                  "id":"eb51ab14-8e56-4170-87c8-436fca6a8312",
                   "name":"Enzo",
                   "avatar":"http://localhost:3001/public/1683318820660.jpeg",
                   "email":"enzopinheiro6@gmail.com"
@@ -614,31 +610,9 @@
                   "type": "number",
                   "description": "Identificador do usuário",
                   "example": 1
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Nome do usuário logado",
-                  "example": "Enzo Gabriel Pinheiro de Leão"
-                },
-                "email": {
-                  "type": "string",
-                  "description": "Email do usuário logado",
-                  "example": "enzopinheiro6@gmail.com"
-                },
-                "avatar": {
-                  "type": "string",
-                  "description": "Avatar do usuário",
-                  "example": "http://localhost:3000/public/1683069498402.jpeg"
                 }
               },
-              "example":[
-                {
-                  "id":2,
-                  "name":"Enzo",
-                  "avatar":"http://localhost:3001/public/1683318820660.jpeg",
-                  "email":"enzopinheiro6@gmail.com"
-                }
-              ]
+              "example":[]
             },
             "createdAt": {
               "type": "string",
@@ -678,14 +652,14 @@
               "example": "Lembranças de verão"
             },
             "authorId": {
-              "type":"number",
-              "format":"number",
-              "example":1       
+              "type":"string",
+              "format":"uuid",
+              "example":"eb51ab14-8e56-4170-87c8-436fca6a8312"       
             },
             "createdAt": {
               "type":"datetime",
               "format":"datetime",
-              "example":"2023-05-04T13:42:16.863Z"       
+              "example":"2023-05-08T02:48:23.862Z"    
             }
           }
         },
@@ -694,7 +668,7 @@
           "properties": {
             "memoryId": {
               "type": "number",
-              "description": "Identificado unico da memória",
+              "description": "Identificador unico da memória",
               "example": "1"
             },
             "medias": {
@@ -723,16 +697,12 @@
           "type": "object",
           "properties": {
             "medias": {
-              "type": "array",
-              "example": [1,2,3]
-            },
-            "mediasDeleteSucess": {
               "type":"string",
-              "example":3       
+              "example":"77b35965-95c2-4189-a39d-d56f3ada810d"       
             },
             "message": {
               "type":"string",
-              "example":"Imagens deletadas com sucesso"       
+              "example":"Imagem deletada com sucesso"       
             }
           }
         },

@@ -5,13 +5,13 @@ import { CreateMemoryMediaController } from '../modules/Memory/useCase/createMem
 import { DeleteMemoryMediaController } from '../modules/Memory/useCase/deleteMemoryMedia/deleteMediasMemory.controller';
 
 
-const memoryRouter = Router();
+const mediasRouter = Router();
 
 const createMemoryMedia = new CreateMemoryMediaController()
 const deleteMemoryMedia = new DeleteMemoryMediaController()
 
 
-memoryRouter.post('/:memoryId', multer(uploadAvatar.getConfig).array("medias"), createMemoryMedia.handle)
-memoryRouter.delete('/', deleteMemoryMedia.handle)
+mediasRouter.post('/', multer(uploadAvatar.getConfig).array("medias"), createMemoryMedia.handle)
+mediasRouter.delete('/:memoryId', deleteMemoryMedia.handle)
 
-export default memoryRouter;
+export default mediasRouter;
