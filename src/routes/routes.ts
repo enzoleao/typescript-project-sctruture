@@ -11,7 +11,7 @@ const routes = Router();
 routes.use('/users', usersRouter);
 routes.use('/memories',isAuthenticated, memoryRouter)
 routes.use('/medias', mediasRoutes);
-routes.use('/usersInMemory', usersInMemory)
+routes.use('/peoplesmemory',isAuthenticated, usersInMemory)
 
 routes.use(authenticateRoutes)
 export default routes;

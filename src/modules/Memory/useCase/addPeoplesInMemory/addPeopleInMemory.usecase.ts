@@ -4,9 +4,9 @@ export class AddPeopleInMemoryUseCase {
     constructor(
         private addPeopleInMemory : IAddPeopleInMemoryRepository){}
 
-    async execute({ memoryId, userId }: any):Promise<any> {
+    async execute({ memoryId, usersInMemory }: any):Promise<any> {
         
-        const response = this.addPeopleInMemory.create({memoryId, userId})
+        const response = this.addPeopleInMemory.create({memoryId, usersInMemory})
 
         return response
     }

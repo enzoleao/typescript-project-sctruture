@@ -364,6 +364,99 @@
           }
         }
       }
+      ,
+      "/peoplesmemory": {
+        "post": {
+          "description": "Adiciona usuários à memória.",
+          "tags": [
+            "Memorias"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "description": "O usuário é autenticado na aplicação informando as suas credenciais de acesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterPeoplesInMemory"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Mídia deletada com sucesso.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DeleteMemoryMediaResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Imagem não localizada."
+            },
+            "500": {
+              "description": "Erro no servidor."
+            }
+          }
+        }
+      },
+      "/peoplesmemory/{memoryId}/{userId}": {
+        "delete": {
+          "description": "Remove um usuário da memória",
+          "tags": [
+            "Memorias"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters":[
+            {
+              "in":"path",
+              "name":"memoryId",
+              "schema":{
+                "items": {
+                  "type":"string"
+                }
+              }
+            },
+            {
+              "in":"path",
+              "name":"userId",
+              "schema":{
+                "items": {
+                  "type":"string"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Usuário removido da memória com sucesso.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RemovePeoplesInMemory"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Usuário ou memória não localizada."
+            },
+            "500": {
+              "description": "Erro no servidor."
+            }
+          }
+        }
+      }
     },
     "components": {
       "schemas": {
@@ -755,13 +848,36 @@
             }
           }
         },
-        "Phone": {
-          "description": "Objeto que armazena um número de telefone do usuário.",
+        "RegisterPeoplesInMemory": {
           "type": "object",
           "properties": {
-            "phone": {
+            "memoryId": {
+              "description": "Identificador único da memória.",
               "type": "string",
-              "example": "993294200"
+              "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+            },
+            "usersInMemory": {
+              "description": "E-mail do usuário que será criado.",
+              "type": "array",
+              "example": [
+              "eb51ab14-8e56-4170-87c8-436fca6a8312", 
+              "eb51ab14-8e56-4170-87c8-436fca6a8312", 
+              "eb51ab14-8e56-4170-87c8-436fca6a8312"
+            ]
+            }
+          },
+          "required": [
+            "memoryId",
+            "usersInMemory"
+          ]
+        },
+        "RemovePeoplesInMemory": {
+          "type": "object",
+          "properties": {
+            "userRemoved": {
+              "description": "Identificador único do usuario removido da memória.",
+              "type": "string",
+              "example": "bc556fcb-cbfe-418f-9061-ef7d0cac4239"
             }
           }
         }

@@ -1,4 +1,4 @@
 export interface AddPeopleInMemoryDTO {
-    userId: any,
+    usersInMemory: any,
     memoryId: string
 }

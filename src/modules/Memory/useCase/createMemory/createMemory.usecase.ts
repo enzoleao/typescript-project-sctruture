@@ -29,10 +29,10 @@ export class CreateMemoryUseCase {
             })
         }
         if (usersInMemory) {
-        
+
             await this.addPeopleInMemoryUseCase.execute({
                 memoryId: createNewMemory.id,
-                userId: usersInMemory
+                usersInMemory
             })
         }
         

@@ -2,13 +2,14 @@ import { UsersInMemories, Prisma } from "@prisma/client";
 import { prisma } from "../../../../prisma";
 import { IAddPeopleInMemoryRepository } from "../AddPeopleInMemory.repository";
 import { AddPeopleInMemoryDTO } from "../../dtos/AddPeopleInMemoryDTO";
+import { AppError } from "../../../../err/AppError";
 
 export class AddPeopleInMemoryRepository implements IAddPeopleInMemoryRepository {
     
-    async create({ userId, memoryId }:AddPeopleInMemoryDTO): Promise<any | null> { 
-
+    async create({ usersInMemory, memoryId }:AddPeopleInMemoryDTO): Promise<any | null> { 
+        console.log(usersInMemory)
         const response =  await prisma.usersInMemories.createMany({
-             data: userId.map((i: any) => {            
+             data: usersInMemory.map((i: any) => {            
                  return {
                      memoryId: memoryId,
                      userId: i,
@@ -21,22 +22,24 @@ export class AddPeopleInMemoryRepository implements IAddPeopleInMemoryRepository
         }
     }
     async delete({ userId, memoryId }: any): Promise<any> {
-        const uniqueMemory =  userId.length <= 1 ? userId.split("") : userId
+        try {
 
-        const idsUsersNumber = uniqueMemory.map(Number)
-        
-        
-        console.log(idsUsersNumber)
-        const response = await prisma.usersInMemories.deleteMany({
-            where:{
-                userId: {
-                    in: idsUsersNumber
-                },
-                memoryId: memoryId
+            const response = await prisma.usersInMemories.deleteMany({
+                where:{
+                    userId: userId,
+                    memoryId: memoryId
+                }
+            })
+
+            if (response.count == 0) {
+                throw new AppError("Usuário ou memória não encontrada", 404)
             }
-        })
-        return {
-            usersRemovedSucess: response.count
+            return {
+                userRemoved: userId
+            }
+        }
+        catch {
+            throw new AppError("Ocorreu algum erro", 400)
         }
     }
 }
