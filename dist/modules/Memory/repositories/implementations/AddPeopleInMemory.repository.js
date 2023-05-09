@@ -11,11 +11,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AddPeopleInMemoryRepository = void 0;
 const prisma_1 = require("../../../../prisma");
+const AppError_1 = require("../../../../err/AppError");
 class AddPeopleInMemoryRepository {
-    create({ userId, memoryId }) {
+    create({ usersInMemory, memoryId }) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(usersInMemory);
             const response = yield prisma_1.prisma.usersInMemories.createMany({
-                data: userId.map((i) => {
+                data: usersInMemory.map((i) => {
                     return {
                         memoryId: memoryId,
                         userId: i,
@@ -30,20 +32,23 @@ class AddPeopleInMemoryRepository {
     }
     delete({ userId, memoryId }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const uniqueMemory = userId.length <= 1 ? userId.split("") : userId;
-            const idsUsersNumber = uniqueMemory.map(Number);
-            console.log(idsUsersNumber);
-            const response = yield prisma_1.prisma.usersInMemories.deleteMany({
-                where: {
-                    userId: {
-                        in: idsUsersNumber
-                    },
-                    memoryId: memoryId
+            try {
+                const response = yield prisma_1.prisma.usersInMemories.deleteMany({
+                    where: {
+                        userId: userId,
+                        memoryId: memoryId
+                    }
+                });
+                if (response.count == 0) {
+                    throw new AppError_1.AppError("Usuário ou memória não encontrada", 404);
                 }
-            });
-            return {
-                usersRemovedSucess: response.count
-            };
+                return {
+                    userRemoved: userId
+                };
+            }
+            catch (_a) {
+                throw new AppError_1.AppError("Ocorreu algum erro", 400);
+            }
         });
     }
 }

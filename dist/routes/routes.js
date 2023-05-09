@@ -14,6 +14,6 @@ const routes = (0, express_1.Router)();
 routes.use('/users', users_routes_1.default);
 routes.use('/memories', isAuthenticated_1.isAuthenticated, memory_routes_1.default);
 routes.use('/medias', medias_routes_1.default);
-routes.use('/usersInMemory', usersInMemory_routes_1.default);
+routes.use('/peoplesmemory', isAuthenticated_1.isAuthenticated, usersInMemory_routes_1.default);
 routes.use(authenticate_routes_1.default);
 exports.default = routes;
