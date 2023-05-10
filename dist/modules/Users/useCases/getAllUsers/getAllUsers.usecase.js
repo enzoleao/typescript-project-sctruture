@@ -9,18 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addPeopleInMemoryController = void 0;
-const addPeopleInMemory_usecase_1 = require("./addPeopleInMemory.usecase");
-const AddPeopleInMemory_repository_1 = require("../../repositories/implementations/AddPeopleInMemory.repository");
-class addPeopleInMemoryController {
-    handle(req, res) {
+exports.GetAllUsersUseCase = void 0;
+class GetAllUsersUseCase {
+    constructor(userRepository) {
+        this.userRepository = userRepository;
+    }
+    execute() {
         return __awaiter(this, void 0, void 0, function* () {
-            const addPeopleInMemory = new addPeopleInMemory_usecase_1.AddPeopleInMemoryUseCase(new AddPeopleInMemory_repository_1.AddPeopleInMemoryRepository);
-            const { memoryId, usersInMemory } = req.body;
-            console.log(usersInMemory);
-            const response = yield addPeopleInMemory.execute({ memoryId, usersInMemory });
-            return res.json(response);
+            const allUsers = yield this.userRepository.findAll();
+            return allUsers;
         });
     }
 }
-exports.addPeopleInMemoryController = addPeopleInMemoryController;
+exports.GetAllUsersUseCase = GetAllUsersUseCase;

@@ -12,6 +12,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRepository = void 0;
 const prisma_1 = require("../../../../prisma");
 class UserRepository {
+    findAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield prisma_1.prisma.user.findMany();
+            return response.map((i) => {
+                return {
+                    id: i.id,
+                    name: i.name,
+                    email: i.email,
+                    birthday: i.birthday,
+                    avatar: `${process.env.PROTOCOL}://${process.env.HOST}/${i.avatar}`
+                };
+            });
+        });
+    }
     findById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const userResponse = yield prisma_1.prisma.user.findUniqueOrThrow({

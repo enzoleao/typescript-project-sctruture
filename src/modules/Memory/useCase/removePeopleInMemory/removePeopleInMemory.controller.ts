@@ -6,8 +6,8 @@ export class RemovePeopleInMemoryController {
     async handle (req: Request, res: Response): Promise<Response> {
         const addPeopleInMemory = new RemovePeopleInMemoryUseCase(new AddPeopleInMemoryRepository)
 
-        const { memoryId, userId } = req.query
-
+        const { memoryId, userId } = req.params
+       
         const response = await addPeopleInMemory.execute({ memoryId, userId })
         return res.json(response)
     }

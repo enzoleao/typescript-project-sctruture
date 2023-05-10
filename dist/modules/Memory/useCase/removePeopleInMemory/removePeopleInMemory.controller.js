@@ -16,7 +16,7 @@ class RemovePeopleInMemoryController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const addPeopleInMemory = new removePeopleInMemory_usecase_1.RemovePeopleInMemoryUseCase(new AddPeopleInMemory_repository_1.AddPeopleInMemoryRepository);
-            const { memoryId, userId } = req.query;
+            const { memoryId, userId } = req.params;
             const response = yield addPeopleInMemory.execute({ memoryId, userId });
             return res.json(response);
         });

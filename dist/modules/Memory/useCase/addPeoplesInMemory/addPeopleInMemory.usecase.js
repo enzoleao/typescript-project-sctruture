@@ -14,9 +14,9 @@ class AddPeopleInMemoryUseCase {
     constructor(addPeopleInMemory) {
         this.addPeopleInMemory = addPeopleInMemory;
     }
-    execute({ memoryId, userId }) {
+    execute({ memoryId, usersInMemory }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = this.addPeopleInMemory.create({ memoryId, userId });
+            const response = this.addPeopleInMemory.create({ memoryId, usersInMemory });
             return response;
         });
     }

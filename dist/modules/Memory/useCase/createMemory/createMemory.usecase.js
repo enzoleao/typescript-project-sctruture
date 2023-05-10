@@ -31,7 +31,7 @@ class CreateMemoryUseCase {
             if (usersInMemory) {
                 yield this.addPeopleInMemoryUseCase.execute({
                     memoryId: createNewMemory.id,
-                    userId: usersInMemory
+                    usersInMemory
                 });
             }
             return createNewMemory;

@@ -2,7 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const createUser_controller_1 = require("../modules/Users/useCases/createUser/createUser.controller");
+const getAllUsers_controller_1 = require("../modules/Users/useCases/getAllUsers/getAllUsers.controller");
+const isAuthenticated_1 = require("../middleware/isAuthenticated");
 const usersRouter = (0, express_1.Router)();
 const createUserController = new createUser_controller_1.CreateUserController();
+const getAllUserController = new getAllUsers_controller_1.GetAllUsersController();
 usersRouter.post('/', createUserController.handle);
+usersRouter.get('/', isAuthenticated_1.isAuthenticated, getAllUserController.handle);
 exports.default = usersRouter;
