@@ -9,8 +9,18 @@ import { updateUserAvatarRequestDTO } from "../../dtos/updateUserAvatarRequestDT
 
 
 export class UserRepository implements IUserRepository {
-
-   
+    async findAll(): Promise<any> {
+        const response = await prisma.user.findMany()
+        return response.map((i)=>{
+            return {
+                id: i.id,
+                name: i.name,
+                email: i.email,
+                birthday: i.birthday,
+                avatar: `${process.env.PROTOCOL}://${process.env.HOST}/${i.avatar}`
+            }
+        })
+    }
     async findById(id: string): Promise<any> {
         const userResponse = await prisma.user.findUniqueOrThrow({
             where: { 

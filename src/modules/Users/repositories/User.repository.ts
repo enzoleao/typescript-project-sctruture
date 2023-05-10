@@ -8,6 +8,7 @@ export interface IUserRepository {
     create(user: createUserRequestDTO): Promise<createUserResponseDTO>
     findByEmail(email: string): Promise<User | null>
     findById(id: string): Promise<userResponseDTO | null>
+    findAll(): Promise<any | null>
     updateUserAvatar({ avatar, userId } : any): Promise<any | null>
     createUserAvatar({avatar, userId}: any): Promise<any | null>
 }
