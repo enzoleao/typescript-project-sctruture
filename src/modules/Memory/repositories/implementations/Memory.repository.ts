@@ -54,6 +54,7 @@ export class MemoryRepository implements IMemoryRepository {
                     return {
                         id: i.id,
                         content: i.content,
+                        createdAt: i.createdAt
                     }
                 }),
                 media: i.media.map((i: any)=>{

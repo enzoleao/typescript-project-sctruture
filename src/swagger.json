@@ -392,8 +392,7 @@
             }
           }
         }
-      }
-      ,
+      },
       "/peoplesmemory": {
         "post": {
           "description": "Adiciona usuários à memória.",
@@ -450,6 +449,99 @@
             {
               "in":"path",
               "name":"memoryId",
+              "schema":{
+                "items": {
+                  "type":"string"
+                }
+              }
+            },
+            {
+              "in":"path",
+              "name":"userId",
+              "schema":{
+                "items": {
+                  "type":"string"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Usuário removido da memória com sucesso.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RemovePeoplesInMemory"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Usuário ou memória não localizada."
+            },
+            "500": {
+              "description": "Erro no servidor."
+            }
+          }
+        }
+      },
+      "/reflections": {
+        "post": {
+          "description": "O usuário adiciona medias à sua lembrança ex: fotos e videos.",
+          "tags": [
+            "Memorias"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "description": "O usuário é autenticado na aplicação informando as suas credenciais de acesso.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateMemoryMediaRequest"
+                }
+                
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Medias subidas resposta.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateMemoryMediaResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Ocorreu algum erro."
+            },
+            "500": {
+              "description": "Erro no servidor."
+            }
+          }
+        }
+      },
+      "/reflections/{reflectionId}": {
+        "delete": {
+          "description": "Remove um usuário da memória",
+          "tags": [
+            "Memorias"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters":[
+            {
+              "in":"path",
+              "name":"reflectionId",
               "schema":{
                 "items": {
                   "type":"string"
