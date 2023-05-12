@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const createReflections_controller_1 = require("../modules/Memory/useCase/createReflections/createReflections.controller");
+const deleteReflections_controller_1 = require("../modules/Memory/useCase/deleteReflections/deleteReflections.controller");
+const reflectionsRouter = (0, express_1.Router)();
+const createReflectionsController = new createReflections_controller_1.CreateReflectionsController();
+const deleteReflectionsController = new deleteReflections_controller_1.DeleteReflectionsController();
+reflectionsRouter.post('/', createReflectionsController.handle);
+reflectionsRouter.delete('/:reflectionId', deleteReflectionsController.handle);
+exports.default = reflectionsRouter;

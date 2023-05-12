@@ -61,6 +61,7 @@ class MemoryRepository {
                         return {
                             id: i.id,
                             content: i.content,
+                            createdAt: i.createdAt
                         };
                     }),
                     media: i.media.map((i) => {
@@ -85,9 +86,17 @@ class MemoryRepository {
             return response;
         });
     }
-    update(memoryId) {
+    update({ memoryId, memoryName }) {
         return __awaiter(this, void 0, void 0, function* () {
-            throw new Error("Method not implemented.");
+            const response = yield prisma_1.prisma.memory.update({
+                where: {
+                    id: memoryId
+                },
+                data: {
+                    name: memoryName
+                }
+            });
+            return response;
         });
     }
 }
