@@ -76,6 +76,7 @@ model StickyNotes {
   id String @id @default(uuid())
   content String
   authorId String @map("author_id")
+  date DateTime ?
   createdAt DateTime @default(now()) @map("created_at")  
 
   author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
