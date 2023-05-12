@@ -12,7 +12,7 @@
     "paths": {
         "/session": {
             "post": {
-                "description": "Autentica o usuário na aplicação.",
+                "description": "Autentica o usuário na aplicação!",
                 "tags": [
                     "Usuários"
                 ],
