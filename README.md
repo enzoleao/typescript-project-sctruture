@@ -80,7 +80,7 @@ API em Node.js para um aplicativo de memórias
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - [express-async-errors](https://www.npmjs.com/package/express-async-errors)
 - [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)
-- [Multer](https://www.npmjs.com/package/multer)
+- [Multer](https://www.npmjs.com/package/multerg)
 - [VSCode](https://code.visualstudio.com/)
 ---
 
