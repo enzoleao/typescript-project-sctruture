@@ -6,6 +6,9 @@ const reflectionsRouter = Router();
 
 const createReflectionsController = new CreateReflectionsController()
 const deleteReflectionsController = new DeleteReflectionsController()
+
 reflectionsRouter.post('/', createReflectionsController.handle)
+reflectionsRouter.put('/:reflectionId', deleteReflectionsController.handle)
 reflectionsRouter.delete('/:reflectionId', deleteReflectionsController.handle)
+
 export default reflectionsRouter;

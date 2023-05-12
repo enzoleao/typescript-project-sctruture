@@ -578,6 +578,56 @@
         }
       },
       "/reflections/{reflectionId}": {
+        "put": {
+          "description": "Remove uma reflexão da memória",
+          "tags": [
+            "Memorias"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters":[
+            {
+              "in":"path",
+              "name":"reflectionId",
+              "schema":{
+                "items": {
+                  "type":"string"
+                }
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Dados necessários para atualizar a memória",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateReflectionRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Reflexão removida da memória com sucesso.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DeleteReflectionResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Usuário ou memória não localizada."
+            },
+            "500": {
+              "description": "Erro no servidor."
+            }
+          }
+        },
         "delete": {
           "description": "Remove uma reflexão da memória",
           "tags": [
@@ -1174,9 +1224,23 @@
               "type":"string",
               "example":"Este dia estava muito divertido"       
             },
+            "authorId": {
+              "type":"string",
+              "example":"eb51ab14-8e56-4170-87c8-436fca6a8312"       
+            },
             "createdAt": {
               "type":"datetime",
               "example":"2023-05-11T23:38:14.865Z"       
+            }
+          }
+        },
+        "UpdateReflectionRequest": {
+          "type": "object",
+          "properties": {
+
+            "memoryName": {
+              "type":"string",
+              "example":"Este dia estava muito divertido"       
             }
           }
         },
