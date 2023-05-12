@@ -537,7 +537,7 @@
       },
       "/reflections": {
         "post": {
-          "description": "O usuário adiciona uma reflexão à sua lembrança ex: fotos e videos.",
+          "description": "O usuário adiciona uma reflexão à sua lembrança.",
           "tags": [
             "Memorias"
           ],
@@ -579,7 +579,7 @@
       },
       "/reflections/{reflectionId}": {
         "put": {
-          "description": "Remove uma reflexão da memória",
+          "description": "Atualiza uma reflexão da memória",
           "tags": [
             "Memorias"
           ],
@@ -600,7 +600,7 @@
             }
           ],
           "requestBody": {
-            "description": "Dados necessários para atualizar a memória",
+            "description": "Dados necessários para atualizar a reflexão da memória",
             "content": {
               "application/json": {
                 "schema": {
@@ -611,7 +611,7 @@
           },
           "responses": {
             "200": {
-              "description": "Reflexão removida da memória com sucesso.",
+              "description": "Reflexão da memória alterada com sucesso.",
               "content": {
                 "application/json": {
                   "schema": {
@@ -1238,7 +1238,7 @@
           "type": "object",
           "properties": {
 
-            "memoryName": {
+            "content": {
               "type":"string",
               "example":"Este dia estava muito divertido"       
             }

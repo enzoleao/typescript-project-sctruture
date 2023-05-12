@@ -13,8 +13,16 @@ export class ReflectionsRepository implements IReflectionsRepository {
         })
         return response
     }
-    update(data: any): Promise<any> {
-        throw new Error('Method not implemented.')
+    async update({ reflectionId, content }: any): Promise<any> {
+        const response = await prisma.reflections.update({
+            where: {
+                id: reflectionId
+            },
+            data: {
+                content
+            }
+        })
+        return response
     }
     async delete({ reflectionId }: any): Promise<any> {
         

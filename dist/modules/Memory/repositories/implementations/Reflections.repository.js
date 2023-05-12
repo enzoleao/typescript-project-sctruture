@@ -23,8 +23,18 @@ class ReflectionsRepository {
             return response;
         });
     }
-    update(data) {
-        throw new Error('Method not implemented.');
+    update({ reflectionId, content }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield prisma_1.prisma.reflections.update({
+                where: {
+                    id: reflectionId
+                },
+                data: {
+                    content
+                }
+            });
+            return response;
+        });
     }
     delete({ reflectionId }) {
         return __awaiter(this, void 0, void 0, function* () {

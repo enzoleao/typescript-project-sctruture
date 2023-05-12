@@ -536,7 +536,7 @@
         },
         "/reflections": {
             "post": {
-                "description": "O usuário adiciona uma reflexão à sua lembrança ex: fotos e videos.",
+                "description": "O usuário adiciona uma reflexão à sua lembrança.",
                 "tags": [
                     "Memorias"
                 ],
@@ -576,6 +576,56 @@
             }
         },
         "/reflections/{reflectionId}": {
+            "put": {
+                "description": "Atualiza uma reflexão da memória",
+                "tags": [
+                    "Memorias"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "reflectionId",
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para atualizar a reflexão da memória",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateReflectionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Reflexão da memória alterada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeleteReflectionResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Usuário ou memória não localizada."
+                    },
+                    "500": {
+                        "description": "Erro no servidor."
+                    }
+                }
+            },
             "delete": {
                 "description": "Remove uma reflexão da memória",
                 "tags": [
@@ -1170,9 +1220,22 @@
                         "type": "string",
                         "example": "Este dia estava muito divertido"
                     },
+                    "authorId": {
+                        "type": "string",
+                        "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+                    },
                     "createdAt": {
                         "type": "datetime",
                         "example": "2023-05-11T23:38:14.865Z"
+                    }
+                }
+            },
+            "UpdateReflectionRequest": {
+                "type": "object",
+                "properties": {
+                    "content": {
+                        "type": "string",
+                        "example": "Este dia estava muito divertido"
                     }
                 }
             },
