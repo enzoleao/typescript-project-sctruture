@@ -78,7 +78,15 @@ export class MemoryRepository implements IMemoryRepository {
         })
         return response
     }
-    async update(memoryId: any): Promise<any> {
-        throw new Error("Method not implemented.");
+    async update({memoryId, memoryName}: any): Promise<any> {
+        const response = await prisma.memory.update({
+            where:{
+                id: memoryId
+            },
+            data:{
+                name: memoryName
+            }
+        })
+        return response
     }
 }

@@ -268,6 +268,56 @@
         }
       },
       "/memories/{memoryId}": {
+        "put": {
+          "description": "Atualizar uma memória.",
+          "tags": [
+            "Memorias"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters":[
+            {
+              "in":"path",
+              "name":"memoryId",
+              "schema":{
+                "items": {
+                  "type":"string"
+                }
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Dados necessários para atualizar a memória",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateMemoryRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Memória atualizada com sucesso.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateMemoryResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Memória não localizada."
+            },
+            "500": {
+              "description": "Erro no servidor."
+            }
+          }
+        },
         "delete": {
           "description": "Deleta uma memória.",
           "tags": [
@@ -321,7 +371,7 @@
             }
           ],
           "requestBody": {
-            "description": "O usuário é autenticado na aplicação informando as suas credenciais de acesso.",
+            "description": "O usuário adiciona midias em sua memória.",
             "content": {
               "multipart/form-data": {
                 "schema": {
@@ -353,7 +403,7 @@
       },
       "/medias/{mediaId}": {
         "delete": {
-          "description": "Delete mídia de uma memória.",
+          "description": "Deleta mídia de uma memória.",
           "tags": [
             "Memorias"
           ],
@@ -393,7 +443,7 @@
           }
         }
       },
-      "/peoplesmemory": {
+      "/usersinmemory": {
         "post": {
           "description": "Adiciona usuários à memória.",
           "tags": [
@@ -405,22 +455,22 @@
             }
           ],
           "requestBody": {
-            "description": "O usuário é autenticado na aplicação informando as suas credenciais de acesso.",
+            "description": "Adiciona usuários á memória.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegisterPeoplesInMemory"
+                  "$ref": "#/components/schemas/AddPeopleInMemoryRequest"
                 }
               }
             }
           },
           "responses": {
             "200": {
-              "description": "Mídia deletada com sucesso.",
+              "description": "Usuários adicionados com sucesso.",
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/DeleteMemoryMediaResponse"
+                    "$ref": "#/components/schemas/AddPeopleInMemoryResponse"
                   }
                 }
               }
@@ -434,7 +484,7 @@
           }
         }
       },
-      "/peoplesmemory/{memoryId}/{userId}": {
+      "/usersinmemory/{memoryId}/{userId}": {
         "delete": {
           "description": "Remove um usuário da memória",
           "tags": [
@@ -471,7 +521,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/RemovePeoplesInMemory"
+                    "$ref": "#/components/schemas/RemovePeoplesInMemoryResponse"
                   }
                 }
               }
@@ -487,7 +537,7 @@
       },
       "/reflections": {
         "post": {
-          "description": "O usuário adiciona medias à sua lembrança ex: fotos e videos.",
+          "description": "O usuário adiciona uma reflexão à sua lembrança ex: fotos e videos.",
           "tags": [
             "Memorias"
           ],
@@ -497,11 +547,11 @@
             }
           ],
           "requestBody": {
-            "description": "O usuário é autenticado na aplicação informando as suas credenciais de acesso.",
+            "description": "O usuário cria uma reflexão em sua lembrança.",
             "content": {
-              "multipart/form-data": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateMemoryMediaRequest"
+                  "$ref": "#/components/schemas/CreateReflectionRequest"
                 }
                 
               }
@@ -509,11 +559,11 @@
           },
           "responses": {
             "200": {
-              "description": "Medias subidas resposta.",
+              "description": "Reflexão criada com sucesso.",
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/CreateMemoryMediaResponse"
+                    "$ref": "#/components/schemas/CreateReflectionResponse"
                   }
                 }
               }
@@ -529,7 +579,7 @@
       },
       "/reflections/{reflectionId}": {
         "delete": {
-          "description": "Remove um usuário da memória",
+          "description": "Remove uma reflexão da memória",
           "tags": [
             "Memorias"
           ],
@@ -547,24 +597,15 @@
                   "type":"string"
                 }
               }
-            },
-            {
-              "in":"path",
-              "name":"userId",
-              "schema":{
-                "items": {
-                  "type":"string"
-                }
-              }
             }
           ],
           "responses": {
             "200": {
-              "description": "Usuário removido da memória com sucesso.",
+              "description": "Reflexão removida da memória com sucesso.",
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/RemovePeoplesInMemory"
+                    "$ref": "#/components/schemas/DeleteReflectionResponse"
                   }
                 }
               }
@@ -971,6 +1012,101 @@
             }
           }
         },
+        "UpdateMemoryRequest": {
+          "type": "object",
+          "properties": {
+            "memoryName": {
+              "type": "string",
+              "description": "Nome da memória",
+              "format":"string",
+              "example": "Lembranças de verão"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
+        "UpdateMemoryResponse": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "format":"number",
+              "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+            },
+            "name": {
+              "type": "string",
+              "format":"string",
+              "example": "Lembranças de verão"
+            },
+            "authorId": {
+              "type":"string",
+              "format":"uuid",
+              "example":"eb51ab14-8e56-4170-87c8-436fca6a8312"       
+            },
+            "createdAt": {
+              "type":"datetime",
+              "format":"datetime",
+              "example":"2023-05-08T02:48:23.862Z"    
+            }
+          }
+        },
+        "AddPeopleInMemoryRequest": {
+          "type": "object",
+          "properties": {
+            "memoryId": {
+              "type": "string",
+              "description": "Identificador unico da memória",
+              "format":"string",
+              "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+            },
+            "usersInMemory": {
+              "type":"array",
+              "format":"array",
+              "example":[
+                "eb51ab14-8e56-4170-87c8-436fca6a8312",
+                "eb51ab14-8e56-4170-87c8-436fca6a8312",
+                "eb51ab14-8e56-4170-87c8-436fca6a8312"
+              ],
+              "description":"Array com os Identificadores únicos dos usuarios que serão adicionados na memória"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
+        "AddPeopleInMemoryResponse": {
+          "type": "object",
+          "properties": {
+            "memoryId": {
+              "type": "string",
+              "description": "Identificador unico da memória",
+              "format":"string",
+              "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+            },
+            "usersAddInMemory": {
+              "type":"number",
+              "format":"number",
+              "example":1,
+              "description":"Array com os Identificadores únicos dos usuarios que serão adicionados na memória"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
+        "RemovePeoplesInMemoryResponse": {
+          "type": "object",
+          "properties": {
+            "userRemoved": {
+              "type": "string",
+              "description": "Identificador unico do usuário removido",
+              "format":"string",
+              "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+            }
+          }
+          
+        },
         "CreateMemoryMediaRequest": {
           "type": "object",
           "properties": {
@@ -1011,6 +1147,57 @@
             "message": {
               "type":"string",
               "example":"Imagem deletada com sucesso"       
+            }
+          }
+        },
+        "CreateReflectionRequest": {
+          "type": "object",
+          "properties": {
+            "memoryId": {
+              "type":"string",
+              "example":"77b35965-95c2-4189-a39d-d56f3ada810d"       
+            },
+            "content": {
+              "type":"string",
+              "example":"Estava muito divertido nesse dia"       
+            }
+          }
+        },
+        "CreateReflectionResponse": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type":"string",
+              "example":"77b35965-95c2-4189-a39d-d56f3ada810d"       
+            },
+            "content": {
+              "type":"string",
+              "example":"Este dia estava muito divertido"       
+            },
+            "createdAt": {
+              "type":"datetime",
+              "example":"2023-05-11T23:38:14.865Z"       
+            }
+          }
+        },
+        "DeleteReflectionResponse": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type":"string",
+              "example":"77b35965-95c2-4189-a39d-d56f3ada810d"       
+            },
+            "content": {
+              "type":"string",
+              "example":"Este dia estava muito divertido"       
+            },
+            "memoryId": {
+              "type":"string",
+              "example":"77b35965-95c2-4189-a39d-d56f3ada810d"       
+            },
+            "createdAt": {
+              "type":"datetime",
+              "example":"2023-05-11T23:38:14.865Z"       
             }
           }
         }

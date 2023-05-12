@@ -16,8 +16,14 @@ export class ReflectionsRepository implements IReflectionsRepository {
     update(data: any): Promise<any> {
         throw new Error('Method not implemented.')
     }
-    delete({ memoryMedia_id }: any): Promise<any> {
-        throw new Error('Method not implemented.')
+    async delete({ reflectionId }: any): Promise<any> {
+        
+        const response = await prisma.reflections.delete({
+            where: {
+                id: reflectionId   
+            }
+        })
+        return response
     }
 
 }
