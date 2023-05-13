@@ -57,8 +57,6 @@ export class MemoryRepository implements IMemoryRepository {
                         avatar: `${process.env.PROTOCOL}://${process.env.HOST}/${i.user.avatar}`,
                         email: i.user.email,
                         name: i.user.name,
-                        username: i.user.username,
-                        number: i.user.number,
                         birthday: i.user.birthday,
                     }
                 })

@@ -13,7 +13,6 @@ interface LoginResponse {
       name: string 
       email: string 
       avatar: string 
-      number: string 
       username: string
       birthday: Date
     },
@@ -48,7 +47,6 @@ export class AuthenticateUserUseCase {
                 email: user.email,
                 avatar: `${process.env.PROTOCOL}://${process.env.HOST}/${user.avatar}`,
                 username: user.username,
-                number: user.number,
                 birthday: user.birthday,
                 
             },
