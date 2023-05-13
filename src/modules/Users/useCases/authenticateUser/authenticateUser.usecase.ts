@@ -10,10 +10,10 @@ interface LoginTypes {
 interface LoginResponse {
     user: {
       id: string
-      name: string | null
+      name: string 
       email: string 
-      avatar: string | null
-      number: string | null
+      avatar: string 
+      number: string 
       username: string
       birthday: Date
     },
