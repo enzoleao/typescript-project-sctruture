@@ -9,13 +9,15 @@ interface LoginTypes {
 }
 interface LoginResponse {
     user: {
-      id: string,
+      id: string
       name: string | null
       email: string 
       avatar: string | null
+      number: string | null
+      username: string
       birthday: Date
     },
-    token: string,
+    token: string
   }
 
 export class AuthenticateUserUseCase {
@@ -45,7 +47,10 @@ export class AuthenticateUserUseCase {
                 name: user.name,
                 email: user.email,
                 avatar: `${process.env.PROTOCOL}://${process.env.HOST}/${user.avatar}`,
-                birthday: user.birthday
+                username: user.username,
+                number: user.number,
+                birthday: user.birthday,
+                
             },
             token
         }

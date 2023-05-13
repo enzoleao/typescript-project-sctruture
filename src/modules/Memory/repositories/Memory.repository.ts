@@ -6,4 +6,5 @@ export interface IMemoryRepository {
     create(memory: MemoryCreateDTO): Promise<any | null>
     delete(memoryId: any): Promise<any | null>
     update(memoryId: any): Promise<any | null>
+    findAll(): Promise<any | null>
 }

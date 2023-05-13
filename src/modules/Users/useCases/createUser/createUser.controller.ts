@@ -14,14 +14,18 @@ export class CreateUserController {
           email,
           name,
           password,
-          birthday
+          birthday,
+          username,
+          number
         } = req.body as createUserRequestDTO;
 
         const createEmployee = await createUserUseCase.execute({
           email,
           name,
           password,
-          birthday
+          birthday,
+          username,
+          number
         })
         return res.status(201).json(createEmployee)
     }

@@ -5,6 +5,7 @@ import { GetCurrentUserController } from '../modules/Users/useCases/getCurrentUs
 import { isAuthenticated } from '../middleware/isAuthenticated';
 import { uploadAvatar } from '../middleware/upload/avatar';
 import { UpdateUserAvatarController } from '../modules/Users/useCases/updateUserAvatar/updateUserAvatar.controller';
+import { FindAllMemoriesController } from '../modules/Memory/useCase/findAllMemories/findAllMemories.controller';
 
 
 const authenticateRoutes = Router();
@@ -13,9 +14,10 @@ const authenticateRoutes = Router();
 const authenticateUserController = new AuthenticateUserController()
 const getCurrentUserController = new GetCurrentUserController() 
 const updateUserAvatarController = new UpdateUserAvatarController()
-
-authenticateRoutes.post('/session', authenticateUserController.handle);
+const findAllMemoriesController = new FindAllMemoriesController()
 authenticateRoutes.get('/me',isAuthenticated, getCurrentUserController.handle);
+authenticateRoutes.get('/allMemories',isAuthenticated, findAllMemoriesController.handle);
+authenticateRoutes.post('/session', authenticateUserController.handle);
 authenticateRoutes.put('/avatar/:userId', multer(uploadAvatar.getConfig).single("avatar"), updateUserAvatarController.handle)
 
 export default authenticateRoutes;

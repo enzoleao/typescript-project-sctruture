@@ -13,7 +13,9 @@ export class CreateUserUseCase {
         email,
         name,
         password,
-        birthday
+        birthday,
+        number,
+        username
         
     }: createUserRequestDTO): Promise<createUserResponseDTO>{
         const userAlreadyExists = await this.userRepository.findByEmail(email)
@@ -27,7 +29,9 @@ export class CreateUserUseCase {
             email,
             name,
             password: passwordHash,
-            birthday
+            birthday,
+            number,
+            username
         })
         return createdUser
     }
