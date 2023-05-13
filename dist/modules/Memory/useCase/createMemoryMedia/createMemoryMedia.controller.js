@@ -18,7 +18,6 @@ class CreateMemoryMediaController {
             const createeMemoryMedia = new createMemoryMedia_usecase_1.CreateMemoryMediaUseCase(new MemoryMedia_repository_1.CreateMemoryMedia);
             const medias = req.files;
             const { memoryId } = req.body;
-            console.log(medias);
             const response = yield createeMemoryMedia.execute({ memoryId, medias });
             return res.json(response);
         });

@@ -9,24 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateUserController = void 0;
-const createUser_usecase_1 = require("./createUser.usecase");
-const User_repository_1 = require("../../repositories/implementations/User.repository");
-class CreateUserController {
+exports.FindAllMemoriesController = void 0;
+const findAllMemories_usecase_1 = require("./findAllMemories.usecase");
+const Memory_repository_1 = require("../../repositories/implementations/Memory.repository");
+class FindAllMemoriesController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const createUserUseCase = new createUser_usecase_1.CreateUserUseCase(new User_repository_1.UserRepository);
-            const { email, name, password, birthday, username, number } = req.body;
-            const createEmployee = yield createUserUseCase.execute({
-                email,
-                name,
-                password,
-                birthday,
-                username,
-                number
-            });
-            return res.status(201).json(createEmployee);
+            const memoryRepository = new findAllMemories_usecase_1.FindAllMemoriesUseCase(new Memory_repository_1.MemoryRepository);
+            const response = yield memoryRepository.execute();
+            return res.json(response);
         });
     }
 }
-exports.CreateUserController = CreateUserController;
+exports.FindAllMemoriesController = FindAllMemoriesController;

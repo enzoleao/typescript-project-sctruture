@@ -41,6 +41,8 @@ class UserRepository {
                 avatar: `${process.env.PROTOCOL}://${process.env.HOST}/${userResponse.avatar}`,
                 name: userResponse.name,
                 email: userResponse.email,
+                username: userResponse.username,
+                number: userResponse.number,
                 birthday: userResponse.birthday
             };
         });
@@ -51,15 +53,19 @@ class UserRepository {
                 data: {
                     email: user.email,
                     name: user.name,
-                    password: user.password,
+                    username: user.username,
+                    number: user.number,
                     birthday: user.birthday,
+                    password: user.password
                 }
             });
             return {
                 id: response.id,
                 name: response.name,
                 email: response.email,
-                birthday: response.birthday
+                username: response.username,
+                number: response.number,
+                birthday: response.birthday,
             };
         });
     }

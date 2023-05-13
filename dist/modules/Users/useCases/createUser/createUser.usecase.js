@@ -16,7 +16,7 @@ class CreateUserUseCase {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
-    execute({ email, name, password, birthday }) {
+    execute({ email, name, password, birthday, number, username }) {
         return __awaiter(this, void 0, void 0, function* () {
             const userAlreadyExists = yield this.userRepository.findByEmail(email);
             if (userAlreadyExists) {
@@ -27,7 +27,9 @@ class CreateUserUseCase {
                 email,
                 name,
                 password: passwordHash,
-                birthday
+                birthday,
+                number,
+                username
             });
             return createdUser;
         });

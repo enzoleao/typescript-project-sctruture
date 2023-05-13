@@ -10,11 +10,14 @@ const getCurrentUser_controller_1 = require("../modules/Users/useCases/getCurren
 const isAuthenticated_1 = require("../middleware/isAuthenticated");
 const avatar_1 = require("../middleware/upload/avatar");
 const updateUserAvatar_controller_1 = require("../modules/Users/useCases/updateUserAvatar/updateUserAvatar.controller");
+const findAllMemories_controller_1 = require("../modules/Memory/useCase/findAllMemories/findAllMemories.controller");
 const authenticateRoutes = (0, express_1.Router)();
 const authenticateUserController = new authenticateUser_controller_1.AuthenticateUserController();
 const getCurrentUserController = new getCurrentUser_controller_1.GetCurrentUserController();
 const updateUserAvatarController = new updateUserAvatar_controller_1.UpdateUserAvatarController();
-authenticateRoutes.post('/session', authenticateUserController.handle);
+const findAllMemoriesController = new findAllMemories_controller_1.FindAllMemoriesController();
 authenticateRoutes.get('/me', isAuthenticated_1.isAuthenticated, getCurrentUserController.handle);
+authenticateRoutes.get('/allMemories', isAuthenticated_1.isAuthenticated, findAllMemoriesController.handle);
+authenticateRoutes.post('/session', authenticateUserController.handle);
 authenticateRoutes.put('/avatar/:userId', (0, multer_1.default)(avatar_1.uploadAvatar.getConfig).single("avatar"), updateUserAvatarController.handle);
 exports.default = authenticateRoutes;
