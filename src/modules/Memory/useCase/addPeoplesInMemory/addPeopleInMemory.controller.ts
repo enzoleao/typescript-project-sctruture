@@ -7,7 +7,7 @@ export class addPeopleInMemoryController {
         const addPeopleInMemory = new AddPeopleInMemoryUseCase(new AddPeopleInMemoryRepository)
 
         const { memoryId, usersInMemory } = req.body
-        console.log(usersInMemory)
+        
         const response = await addPeopleInMemory.execute({ memoryId, usersInMemory })
         return res.json(response)
     }

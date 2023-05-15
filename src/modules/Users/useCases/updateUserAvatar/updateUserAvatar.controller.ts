@@ -10,7 +10,6 @@ export class UpdateUserAvatarController {
             const updateUserAvatar = new UpdateUserAvatarUseCase(new UserRepository)
             const avatar = req.file?.filename
             const { userId } = req.params
-            console.log(userId)
         if (!avatar) {
             throw new AppError("Image not receveid", 404)
         }
