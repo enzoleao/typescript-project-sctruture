@@ -9,18 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateStickyNotesUseCase = void 0;
-class CreateStickyNotesUseCase {
+exports.DeleteStickyNotesUseCase = void 0;
+class DeleteStickyNotesUseCase {
     constructor(StickyNotesRepository) {
         this.StickyNotesRepository = StickyNotesRepository;
     }
-    execute({ authorId, date, content }) {
+    execute(stickyNotesId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.StickyNotesRepository.create({
-                authorId, date, content
-            });
+            const response = yield this.StickyNotesRepository.delete(stickyNotesId);
             return response;
         });
     }
 }
-exports.CreateStickyNotesUseCase = CreateStickyNotesUseCase;
+exports.DeleteStickyNotesUseCase = DeleteStickyNotesUseCase;

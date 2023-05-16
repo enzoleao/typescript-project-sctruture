@@ -9,6 +9,7 @@ const medias_routes_1 = __importDefault(require("./medias.routes"));
 const authenticate_routes_1 = __importDefault(require("./authenticate.routes"));
 const usersInMemory_routes_1 = __importDefault(require("./usersInMemory.routes"));
 const reflections_routes_1 = __importDefault(require("./reflections.routes"));
+const stickynotes_routes_1 = __importDefault(require("./stickynotes.routes"));
 const isAuthenticated_1 = require("../middleware/isAuthenticated");
 const express_1 = require("express");
 const routes = (0, express_1.Router)();
@@ -17,5 +18,6 @@ routes.use('/memories', isAuthenticated_1.isAuthenticated, memory_routes_1.defau
 routes.use('/medias', medias_routes_1.default);
 routes.use('/usersinmemory', usersInMemory_routes_1.default);
 routes.use('/reflections', isAuthenticated_1.isAuthenticated, reflections_routes_1.default);
+routes.use('/stickynotes', isAuthenticated_1.isAuthenticated, stickynotes_routes_1.default);
 routes.use(authenticate_routes_1.default);
 exports.default = routes;

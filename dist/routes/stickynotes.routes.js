@@ -1,9 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const getAllStickyNotes_controller_1 = require("../modules/StickyNotes/useCase/getAllStickyNotes/getAllStickyNotes.controller");
+const createStickyNotes_controller_1 = require("../modules/StickyNotes/useCase/createStickyNotes/createStickyNotes.controller");
+const deleteStickyNotes_controller_1 = require("../modules/StickyNotes/useCase/deleteStickyNotes/deleteStickyNotes.controller");
 const stickyNotesRouter = (0, express_1.Router)();
-stickyNotesRouter.get('/');
-stickyNotesRouter.post('/');
+const getAllStickyNotesController = new getAllStickyNotes_controller_1.GetAllStickyNotesController();
+const createStickyNotesContrller = new createStickyNotes_controller_1.CreateStickyNotesController();
+const deleteStickyNotesController = new deleteStickyNotes_controller_1.DeleteStickyNotesController();
+stickyNotesRouter.get('/', getAllStickyNotesController.handle);
+stickyNotesRouter.post('/', createStickyNotesContrller.handle);
 stickyNotesRouter.put('/:stickyNotesId');
-stickyNotesRouter.delete('/:stickyNotesId');
+stickyNotesRouter.delete('/:stickyNotesId', deleteStickyNotesController.handle);
 exports.default = stickyNotesRouter;

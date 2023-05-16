@@ -717,7 +717,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/GetMemoriesCurrentUser"
+                    "$ref": "#/components/schemas/GetStickyNotesCurrentUserResponse"
                   }
                 }
               }
@@ -731,7 +731,7 @@
           }
         },
         "post": {
-          "description": "Criação de memória do usuário.",
+          "description": "Criação de lembrete do usuário.",
           "tags": [
             "Sticky Notes"
           ],
@@ -752,7 +752,7 @@
           },
           "responses": {
             "200": {
-              "description": "Memoria criada com sucesso.",
+              "description": "Lembrete criado com sucesso.",
               "content": {
                 "application/json": {
                   "schema": {
@@ -763,6 +763,48 @@
             },
             "401": {
               "description": "Token inválido ou expirado."
+            },
+            "500": {
+              "description": "Erro no servidor."
+            }
+          }
+        }
+      },
+      "/stickynotes/{stickyNotesId}": {
+        "delete": {
+          "description": "Deleta um lembrete da memória",
+          "tags": [
+            "Sticky Notes"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters":[
+            {
+              "in":"path",
+              "name":"stickyNotesId",
+              "schema":{
+                "items": {
+                  "type":"string"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Lembrete deletado com sucesso.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DeleteStickyNotesResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Lembrete não localizado."
             },
             "500": {
               "description": "Erro no servidor."
@@ -1536,141 +1578,54 @@
             }
           }
         },
-        "GetStickyNotesCu": {
+        "GetStickyNotesCurrentUserResponse": {
           "type": "object",
           "properties": {
             "id": {
-              "type": "number",
-              "description":"Identificador unico da memória",
-              "format":"number",
-              "example":"eb51ab14-8e56-4170-87c8-436fca6a8312"
-            },
-            "name": {
               "type": "string",
-              "description":"Nome da lembrança",
-              "format":"string",
-              "example":"Lembranças de verão"
+              "description": "Identificador do lembrete.",
+              "format": "string",
+              "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
             },
-            "usersInMemory": {
-              "type": "array",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "description": "Identificador do usuário",
-                  "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Nome do usuário logado",
-                  "example": "Enzo Gabriel Pinheiro de Leão"
-                },
-                "email": {
-                  "type": "string",
-                  "description": "Email do usuário logado",
-                  "example": "enzopinheiro6@gmail.com"
-                },
-                "avatar": {
-                  "type": "string",
-                  "description": "Avatar do usuário",
-                  "example": "http://localhost:3000/public/1683069498402.jpeg"
-                }
-              },
-              "example":[
-                {
-                  "id":"eb51ab14-8e56-4170-87c8-436fca6a8312",
-                  "name":"Enzo",
-                  "avatar":"http://localhost:3001/public/1683318820660.jpeg",
-                  "email":"enzopinheiro6@gmail.com"
-                }
-              ]
+            "content": {
+              "type": "string",
+              "description": "Conteúdo do lembrete",
+              "format": "string",
+              "example": "Neste dia eu irei viajar ao Rio de Janeiro"
             },
-            "reflections": {
-              "type": "array",
-              "items": {
-                "id": {
-                  "type": "number",
-                  "description": "Identificador do usuário",
-                  "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Nome do usuário logado",
-                  "example": "Enzo Gabriel Pinheiro de Leão"
-                },
-                "email": {
-                  "type": "string",
-                  "description": "Email do usuário logado",
-                  "example": "enzopinheiro6@gmail.com"
-                },
-                "avatar": {
-                  "type": "string",
-                  "description": "Avatar do usuário",
-                  "example": "http://localhost:3000/public/1683069498402.jpeg"
-                }
-              },
-              "example":[
-                {
-                  "id":"eb51ab14-8e56-4170-87c8-436fca6a8312",
-                  "content":"Boas lembranças"
-                }
-              ]
+            "authorId": {
+              "type": "string",
+              "description": " Identificador unicod do Autor do lembrete",
+              "format": "string",
+              "example": "b83dac1e-6c05-47de-be09-e9e26fd3cb8c"
             },
-            "media": {
-              "type": "array",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "description": "Identificador unico da midia da memoria",
-                  "example": 1
-                },
-                "src": {
-                  "type": "string",
-                  "description": "Link para acessar a memória",
-                  "example": "http://localhost:3000/public/1683069498402.jpeg"
-                }
-              },
-              "example":[
-                {
-                  "id":"eb51ab14-8e56-4170-87c8-436fca6a8312", 
-                  "src":"http://localhost:3001/public/1683317414920.jpeg"
-                }
-              ]
-            },
-            "location": {
-              "type": "array",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "description": "Identificador do usuário",
-                  "example": 1
-                }
-              },
-              "example":[]
+            "date": {
+              "type": "string",
+              "description": "Data que acontecerá o lembrete",
+              "format": "string",
+              "example": "2023-10-05T14:48:00.000Z"
             },
             "createdAt": {
               "type": "string",
-              "description": "Data no qual a memória foi criada",
-              "example": "2023-05-05T20:07:31.309Z"
+              "description": "Data que o lembrete foi gerado",
+              "format": "string",
+              "example": "2023-10-05T14:48:00.000Z"
             }
           }
         },
         "CreateStickyNotesRequest": {
           "type": "object",
           "properties": {
-            "name": {
+            "content": {
               "type": "string",
-              "description": "Nome da memória",
+              "description": "Conteudo do lembrete",
               "format":"string",
-              "example": "Lembranças de verão"
+              "example": "Neste dia eu irei viajar ao Rio de Janeiro"
             },
-            "usersInMemory": {
-              "type":"array",
-              "format":"array",
-              "example":[
-                "eb51ab14-8e56-4170-87c8-436fca6a8312",
-                "eb51ab14-8e56-4170-87c8-436fca6a8312",
-                "eb51ab14-8e56-4170-87c8-436fca6a8312"
-              ],
+            "date": {
+              "type":"string",
+              "format":"string",
+              "example":"2023-05-08T02:48:23.862Z",
               "description":"Array com os Identificadores únicos dos usuarios que estão presente na memória"
             }
           },
@@ -1686,7 +1641,7 @@
               "format":"number",
               "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
             },
-            "name": {
+            "content": {
               "type": "string",
               "format":"string",
               "example": "Lembranças de verão"
@@ -1696,6 +1651,41 @@
               "format":"uuid",
               "example":"eb51ab14-8e56-4170-87c8-436fca6a8312"       
             },
+            "date": {
+              "type":"datetime",
+              "format":"datetime",
+              "example":"2023-05-08T02:48:23.862Z"    
+            },
+            "createdAt": {
+              "type":"datetime",
+              "format":"datetime",
+              "example":"2023-05-08T02:48:23.862Z"    
+            }
+          }
+        },
+        "DeleteStickyNotesResponse": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "format":"number",
+              "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+            },
+            "content": {
+              "type": "string",
+              "format":"string",
+              "example": "Lembranças de verão"
+            },
+            "authorId": {
+              "type":"string",
+              "format":"uuid",
+              "example":"eb51ab14-8e56-4170-87c8-436fca6a8312"       
+            },
+            "date": {
+              "type":"datetime",
+              "format":"datetime",
+              "example":"2023-05-08T02:48:23.862Z"    
+            },
             "createdAt": {
               "type":"datetime",
               "format":"datetime",
@@ -1703,7 +1693,6 @@
             }
           }
         }
-        
       },
       "securitySchemes": {
         "bearerAuth": {

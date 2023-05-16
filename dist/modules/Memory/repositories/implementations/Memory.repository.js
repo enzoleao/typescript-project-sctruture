@@ -21,6 +21,9 @@ class MemoryRepository {
                     media: true,
                     location: true,
                     memoryParticipants: true
+                },
+                orderBy: {
+                    createdAt: 'desc'
                 }
             });
             return yield Promise.all(response.map((i) => __awaiter(this, void 0, void 0, function* () {
@@ -62,11 +65,10 @@ class MemoryRepository {
                             avatar: `${process.env.PROTOCOL}://${process.env.HOST}/${i.user.avatar}`,
                             email: i.user.email,
                             name: i.user.name,
-                            username: i.user.username,
-                            number: i.user.number,
                             birthday: i.user.birthday,
                         };
-                    })
+                    }),
+                    createdAt: i.createdAt
                 };
             })));
         });

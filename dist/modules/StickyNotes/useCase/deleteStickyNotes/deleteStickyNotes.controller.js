@@ -9,18 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateStickyNotesUseCase = void 0;
-class CreateStickyNotesUseCase {
-    constructor(StickyNotesRepository) {
-        this.StickyNotesRepository = StickyNotesRepository;
-    }
-    execute({ authorId, date, content }) {
+exports.DeleteStickyNotesController = void 0;
+const deleteStickyNotes_usecase_1 = require("./deleteStickyNotes.usecase");
+const StickyNotes_repository_1 = require("../../repositories/implementations/StickyNotes.repository");
+class DeleteStickyNotesController {
+    handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.StickyNotesRepository.create({
-                authorId, date, content
-            });
-            return response;
+            const deleteStickyNotesUseCase = new deleteStickyNotes_usecase_1.DeleteStickyNotesUseCase(new StickyNotes_repository_1.StickyNotesRespository);
+            const { stickyNotesId } = req.params;
+            const response = yield deleteStickyNotesUseCase.execute(stickyNotesId);
+            return res.json(response);
         });
     }
 }
-exports.CreateStickyNotesUseCase = CreateStickyNotesUseCase;
+exports.DeleteStickyNotesController = DeleteStickyNotesController;

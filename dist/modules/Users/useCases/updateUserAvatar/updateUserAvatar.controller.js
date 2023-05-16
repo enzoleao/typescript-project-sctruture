@@ -20,7 +20,6 @@ class UpdateUserAvatarController {
             const updateUserAvatar = new updateUserAvatar_usecase_1.UpdateUserAvatarUseCase(new User_repository_1.UserRepository);
             const avatar = (_a = req.file) === null || _a === void 0 ? void 0 : _a.filename;
             const { userId } = req.params;
-            console.log(userId);
             if (!avatar) {
                 throw new AppError_1.AppError("Image not receveid", 404);
             }

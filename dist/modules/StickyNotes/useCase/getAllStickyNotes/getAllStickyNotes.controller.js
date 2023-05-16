@@ -12,11 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetAllStickyNotesController = void 0;
 const getAllStickyNotes_usecase_1 = require("./getAllStickyNotes.usecase");
 const StickyNotes_repository_1 = require("../../repositories/implementations/StickyNotes.repository");
+const getIdFromToken_1 = require("../../../../service/getIdFromToken");
 class GetAllStickyNotesController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const createStickyNotes = new getAllStickyNotes_usecase_1.GetAllStickyNotesUseCase(new StickyNotes_repository_1.StickyNotesRespository);
-            return res.json(createStickyNotes);
+            const userId = yield (0, getIdFromToken_1.getIdFromToken)(req.headers.authorization);
+            const respnse = yield createStickyNotes.execute(userId);
+            return res.json(respnse);
         });
     }
 }

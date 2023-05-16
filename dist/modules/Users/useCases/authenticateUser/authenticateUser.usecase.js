@@ -38,7 +38,6 @@ class AuthenticateUserUseCase {
                     email: user.email,
                     avatar: `${process.env.PROTOCOL}://${process.env.HOST}/${user.avatar}`,
                     username: user.username,
-                    number: user.number,
                     birthday: user.birthday,
                 },
                 token

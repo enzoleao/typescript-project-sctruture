@@ -199,7 +199,7 @@
         },
         "/allmemories": {
             "get": {
-                "description": "Retorna todas as memórias dos usuários.",
+                "description": "Retorna todas as memórias dos usuários ordenadas por sua publicação.",
                 "tags": [
                     "Memorias"
                 ],
@@ -691,6 +691,118 @@
                     },
                     "400": {
                         "description": "Usuário ou memória não localizada."
+                    },
+                    "500": {
+                        "description": "Erro no servidor."
+                    }
+                }
+            }
+        },
+        "/stickynotes": {
+            "get": {
+                "description": "Retorna todas os lembretes do usuário autenticado.",
+                "tags": [
+                    "Sticky Notes"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lembretes retornados com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetStickyNotesCurrentUserResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token inválido ou expirado."
+                    },
+                    "500": {
+                        "description": "Erro no servidor."
+                    }
+                }
+            },
+            "post": {
+                "description": "Criação de lembrete do usuário.",
+                "tags": [
+                    "Sticky Notes"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para cadastro de uma memória",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateStickyNotesRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Lembrete criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateStickyNotesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token inválido ou expirado."
+                    },
+                    "500": {
+                        "description": "Erro no servidor."
+                    }
+                }
+            }
+        },
+        "/stickynotes/{stickyNotesId}": {
+            "delete": {
+                "description": "Deleta um lembrete da memória",
+                "tags": [
+                    "Sticky Notes"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "stickyNotesId",
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lembrete deletado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeleteStickyNotesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Lembrete não localizado."
                     },
                     "500": {
                         "description": "Erro no servidor."
@@ -1457,6 +1569,121 @@
                     "createdAt": {
                         "type": "datetime",
                         "example": "2023-05-11T23:38:14.865Z"
+                    }
+                }
+            },
+            "GetStickyNotesCurrentUserResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Identificador do lembrete.",
+                        "format": "string",
+                        "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+                    },
+                    "content": {
+                        "type": "string",
+                        "description": "Conteúdo do lembrete",
+                        "format": "string",
+                        "example": "Neste dia eu irei viajar ao Rio de Janeiro"
+                    },
+                    "authorId": {
+                        "type": "string",
+                        "description": " Identificador unicod do Autor do lembrete",
+                        "format": "string",
+                        "example": "b83dac1e-6c05-47de-be09-e9e26fd3cb8c"
+                    },
+                    "date": {
+                        "type": "string",
+                        "description": "Data que acontecerá o lembrete",
+                        "format": "string",
+                        "example": "2023-10-05T14:48:00.000Z"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "Data que o lembrete foi gerado",
+                        "format": "string",
+                        "example": "2023-10-05T14:48:00.000Z"
+                    }
+                }
+            },
+            "CreateStickyNotesRequest": {
+                "type": "object",
+                "properties": {
+                    "content": {
+                        "type": "string",
+                        "description": "Conteudo do lembrete",
+                        "format": "string",
+                        "example": "Neste dia eu irei viajar ao Rio de Janeiro"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "2023-05-08T02:48:23.862Z",
+                        "description": "Array com os Identificadores únicos dos usuarios que estão presente na memória"
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
+            "CreateStickyNotesResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "format": "number",
+                        "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+                    },
+                    "content": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "Lembranças de verão"
+                    },
+                    "authorId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+                    },
+                    "date": {
+                        "type": "datetime",
+                        "format": "datetime",
+                        "example": "2023-05-08T02:48:23.862Z"
+                    },
+                    "createdAt": {
+                        "type": "datetime",
+                        "format": "datetime",
+                        "example": "2023-05-08T02:48:23.862Z"
+                    }
+                }
+            },
+            "DeleteStickyNotesResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "format": "number",
+                        "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+                    },
+                    "content": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "Lembranças de verão"
+                    },
+                    "authorId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+                    },
+                    "date": {
+                        "type": "datetime",
+                        "format": "datetime",
+                        "example": "2023-05-08T02:48:23.862Z"
+                    },
+                    "createdAt": {
+                        "type": "datetime",
+                        "format": "datetime",
+                        "example": "2023-05-08T02:48:23.862Z"
                     }
                 }
             }

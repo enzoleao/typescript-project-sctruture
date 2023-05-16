@@ -17,7 +17,6 @@ class addPeopleInMemoryController {
         return __awaiter(this, void 0, void 0, function* () {
             const addPeopleInMemory = new addPeopleInMemory_usecase_1.AddPeopleInMemoryUseCase(new AddPeopleInMemory_repository_1.AddPeopleInMemoryRepository);
             const { memoryId, usersInMemory } = req.body;
-            console.log(usersInMemory);
             const response = yield addPeopleInMemory.execute({ memoryId, usersInMemory });
             return res.json(response);
         });
