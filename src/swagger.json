@@ -199,7 +199,7 @@
       },
       "/allmemories": {
         "get": {
-          "description": "Retorna todas as memórias dos usuários.",
+          "description": "Retorna todas as memórias dos usuários ordenadas por sua publicação.",
           "tags": [
             "Memorias"
           ],
@@ -1533,6 +1533,124 @@
             "createdAt": {
               "type":"datetime",
               "example":"2023-05-11T23:38:14.865Z"       
+            }
+          }
+        },
+        "GetStickyNotesCu": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "description":"Identificador unico da memória",
+              "format":"number",
+              "example":"eb51ab14-8e56-4170-87c8-436fca6a8312"
+            },
+            "name": {
+              "type": "string",
+              "description":"Nome da lembrança",
+              "format":"string",
+              "example":"Lembranças de verão"
+            },
+            "usersInMemory": {
+              "type": "array",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Identificador do usuário",
+                  "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Nome do usuário logado",
+                  "example": "Enzo Gabriel Pinheiro de Leão"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "Email do usuário logado",
+                  "example": "enzopinheiro6@gmail.com"
+                },
+                "avatar": {
+                  "type": "string",
+                  "description": "Avatar do usuário",
+                  "example": "http://localhost:3000/public/1683069498402.jpeg"
+                }
+              },
+              "example":[
+                {
+                  "id":"eb51ab14-8e56-4170-87c8-436fca6a8312",
+                  "name":"Enzo",
+                  "avatar":"http://localhost:3001/public/1683318820660.jpeg",
+                  "email":"enzopinheiro6@gmail.com"
+                }
+              ]
+            },
+            "reflections": {
+              "type": "array",
+              "items": {
+                "id": {
+                  "type": "number",
+                  "description": "Identificador do usuário",
+                  "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Nome do usuário logado",
+                  "example": "Enzo Gabriel Pinheiro de Leão"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "Email do usuário logado",
+                  "example": "enzopinheiro6@gmail.com"
+                },
+                "avatar": {
+                  "type": "string",
+                  "description": "Avatar do usuário",
+                  "example": "http://localhost:3000/public/1683069498402.jpeg"
+                }
+              },
+              "example":[
+                {
+                  "id":"eb51ab14-8e56-4170-87c8-436fca6a8312",
+                  "content":"Boas lembranças"
+                }
+              ]
+            },
+            "media": {
+              "type": "array",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Identificador unico da midia da memoria",
+                  "example": 1
+                },
+                "src": {
+                  "type": "string",
+                  "description": "Link para acessar a memória",
+                  "example": "http://localhost:3000/public/1683069498402.jpeg"
+                }
+              },
+              "example":[
+                {
+                  "id":"eb51ab14-8e56-4170-87c8-436fca6a8312", 
+                  "src":"http://localhost:3001/public/1683317414920.jpeg"
+                }
+              ]
+            },
+            "location": {
+              "type": "array",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Identificador do usuário",
+                  "example": 1
+                }
+              },
+              "example":[]
+            },
+            "createdAt": {
+              "type": "string",
+              "description": "Data no qual a memória foi criada",
+              "example": "2023-05-05T20:07:31.309Z"
             }
           }
         },

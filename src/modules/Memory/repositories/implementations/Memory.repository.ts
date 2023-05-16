@@ -14,6 +14,9 @@ export class MemoryRepository implements IMemoryRepository {
                 media: true,
                 location: true,
                 memoryParticipants: true
+            },
+            orderBy: {
+                createdAt:'desc'
             }
         })
 
@@ -59,7 +62,8 @@ export class MemoryRepository implements IMemoryRepository {
                         name: i.user.name,
                         birthday: i.user.birthday,
                     }
-                })
+                }),
+                createdAt: i.createdAt
             }
         }))
     }
