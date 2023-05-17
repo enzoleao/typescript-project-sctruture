@@ -12,8 +12,8 @@ const routes = Router();
 
 routes.use('/users', usersRouter);
 routes.use('/memories',isAuthenticated, memoryRouter)
-routes.use('/medias', mediasRoutes);
-routes.use('/usersinmemory', usersInMemory)
+routes.use('/medias',isAuthenticated, mediasRoutes);
+routes.use('/usersinmemory',isAuthenticated, usersInMemory)
 routes.use('/reflections', isAuthenticated, reflectionsRouter)
 routes.use('/stickynotes', isAuthenticated, stickyNotesRouter)
 routes.use(authenticateRoutes)

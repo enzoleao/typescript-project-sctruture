@@ -769,6 +769,56 @@
             }
         },
         "/stickynotes/{stickyNotesId}": {
+            "put": {
+                "description": "Atualiza um Sticky Notes",
+                "tags": [
+                    "Sticky Notes"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "stickyNotesId",
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para atualizar Sticky Notes",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateStickyNotesRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sticky Notes atualizado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateStickyNotesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Usuário ou memória não localizada."
+                    },
+                    "500": {
+                        "description": "Erro no servidor."
+                    }
+                }
+            },
             "delete": {
                 "description": "Deleta um lembrete da memória",
                 "tags": [
@@ -1684,6 +1734,40 @@
                         "type": "datetime",
                         "format": "datetime",
                         "example": "2023-05-08T02:48:23.862Z"
+                    }
+                }
+            },
+            "UpdateStickyNotesRequest": {
+                "type": "object",
+                "properties": {
+                    "content": {
+                        "type": "string",
+                        "example": "Neste dia terei uma reunião"
+                    },
+                    "date": {
+                        "type": "datetime",
+                        "example": "2023-01-01T14:48:00.000Z"
+                    }
+                }
+            },
+            "UpdateStickyNotesResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "77b35965-95c2-4189-a39d-d56f3ada810d"
+                    },
+                    "content": {
+                        "type": "string",
+                        "example": "Este dia estava muito divertido"
+                    },
+                    "memoryId": {
+                        "type": "string",
+                        "example": "77b35965-95c2-4189-a39d-d56f3ada810d"
+                    },
+                    "createdAt": {
+                        "type": "datetime",
+                        "example": "2023-05-11T23:38:14.865Z"
                     }
                 }
             }

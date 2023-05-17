@@ -36,7 +36,16 @@ class StickyNotesRespository {
     }
     update({ content, stickyNotesId, date }) {
         return __awaiter(this, void 0, void 0, function* () {
-            throw new Error("Method not implemented.");
+            const response = yield prisma_1.prisma.stickyNotes.update({
+                where: {
+                    id: stickyNotesId
+                },
+                data: {
+                    content,
+                    date
+                }
+            });
+            return response;
         });
     }
     delete(stickyNotesId) {

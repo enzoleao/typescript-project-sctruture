@@ -15,6 +15,7 @@ const authenticateUserController = new AuthenticateUserController()
 const getCurrentUserController = new GetCurrentUserController() 
 const updateUserAvatarController = new UpdateUserAvatarController()
 const findAllMemoriesController = new FindAllMemoriesController()
+
 authenticateRoutes.get('/me',isAuthenticated, getCurrentUserController.handle);
 authenticateRoutes.get('/allMemories',isAuthenticated, findAllMemoriesController.handle);
 authenticateRoutes.post('/session', authenticateUserController.handle);

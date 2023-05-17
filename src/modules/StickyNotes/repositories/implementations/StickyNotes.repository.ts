@@ -25,8 +25,17 @@ export class StickyNotesRespository implements IStickyNotesRepository {
         })
         return response
     }
-    async update({content, stickyNotesId, date}: UpdateStickyNotesDTO): Promise<any> {
-        throw new Error("Method not implemented.");
+    async update({ content, stickyNotesId, date }: UpdateStickyNotesDTO): Promise<any> {
+        const response = await prisma.stickyNotes.update({
+            where: {
+                id: stickyNotesId
+            },
+            data: {
+                content,
+                date
+            }
+        })
+        return response
     }
     async delete(stickyNotesId: string): Promise<any> {
         const response = await prisma.stickyNotes.delete({
