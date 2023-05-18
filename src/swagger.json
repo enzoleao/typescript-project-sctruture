@@ -81,35 +81,6 @@
         }
       },
       "/users": {
-        "get": {
-          "description": "Retorna todos usuários",
-          "tags": [
-            "Usuários"
-          ],
-          "security": [
-            {
-              "bearerAuth": []
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Usuários retornados sucesso.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/RegisterUserResponse"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Usuário já foi cadastrado."
-            },
-            "500": {
-              "description": "Erro servidor."
-            }
-          }
-        },
         "post": {
           "description": "Registro de um usuário",
           "tags": [

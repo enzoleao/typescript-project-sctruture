@@ -42,7 +42,7 @@ export class UserRepository implements IUserRepository {
         }
     }
 
-    async create(user: createUserRequestDTO): Promise<createUserResponseDTO> {
+    async create(user: createUserRequestDTO): Promise<createUserResponseDTO | any> {
         const response = await prisma.user.create({
             data: {
               email: user.email,
