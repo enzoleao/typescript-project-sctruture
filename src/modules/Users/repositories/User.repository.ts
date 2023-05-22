@@ -11,4 +11,5 @@ export interface IUserRepository {
     findAll(): Promise<any | null>
     updateUserAvatar({ avatar, userId } : any): Promise<any | null>
     createUserAvatar({avatar, userId}: any): Promise<any | null>
+    delete(id: string): Promise<User | null>
 }

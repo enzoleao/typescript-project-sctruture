@@ -12,6 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRepository = void 0;
 const prisma_1 = require("../../../../prisma");
 class UserRepository {
+    delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield prisma_1.prisma.user.delete({
+                where: {
+                    id
+                }
+            });
+            return response;
+        });
+    }
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield prisma_1.prisma.user.findMany();

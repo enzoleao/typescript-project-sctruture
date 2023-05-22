@@ -9,6 +9,14 @@ import { updateUserAvatarRequestDTO } from "../../dtos/updateUserAvatarRequestDT
 
 
 export class UserRepository implements IUserRepository {
+    async delete(id: string): Promise<User | null> {
+        const response = await prisma.user.delete({
+            where:{
+                id
+            }
+        })
+        return response
+    }
     async findAll(): Promise<any> {
         const response = await prisma.user.findMany()
         return response.map((i)=>{

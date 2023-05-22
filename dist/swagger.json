@@ -116,6 +116,48 @@
                 }
             }
         },
+        "/users/{userId}": {
+            "delete": {
+                "description": "Deleta um lembrete da memória",
+                "tags": [
+                    "Usuários"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lembrete deletado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeleteStickyNotesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Lembrete não localizado."
+                    },
+                    "500": {
+                        "description": "Erro no servidor."
+                    }
+                }
+            }
+        },
         "/avatar/{userId}": {
             "put": {
                 "description": "Atualiza o avatar do usuário.",
