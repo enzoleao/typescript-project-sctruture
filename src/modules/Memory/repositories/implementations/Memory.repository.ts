@@ -1,7 +1,5 @@
 import { prisma } from "../../../../prisma";
-import { Memory } from "@prisma/client"
 import { IMemoryRepository } from '../Memory.repository'
-import { memoryUserResponseDTO } from "../../dtos/MemoryUserRequestDTO";
 import { MemoryCreateDTO } from "../../dtos/MemoryCreateDTO";
 
 
@@ -63,6 +61,7 @@ export class MemoryRepository implements IMemoryRepository {
                         birthday: i.user.birthday,
                     }
                 }),
+                location: i.location[0],
                 createdAt: i.createdAt
             }
         }))
@@ -124,7 +123,7 @@ export class MemoryRepository implements IMemoryRepository {
                         src: `${process.env.PROTOCOL}://${process.env.HOST}/${i.src}`
                     }
                 }),
-                location: i.location,
+                location: i.location[0],
                 createdAt: i.createdAt,
                 
             }
