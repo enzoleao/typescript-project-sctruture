@@ -11,12 +11,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateMemoryUseCase = void 0;
 class CreateMemoryUseCase {
-    constructor(memoryRepository, createMemoryMediaUseCase, addPeopleInMemoryUseCase) {
+    constructor(memoryRepository, createMemoryMediaUseCase, addPeopleInMemoryUseCase, createMemoryLocationUseCase) {
         this.memoryRepository = memoryRepository;
         this.createMemoryMediaUseCase = createMemoryMediaUseCase;
         this.addPeopleInMemoryUseCase = addPeopleInMemoryUseCase;
+        this.createMemoryLocationUseCase = createMemoryLocationUseCase;
     }
-    execute({ authorId, name, medias, usersInMemory }) {
+    execute({ authorId, name, medias, usersInMemory, location }) {
         return __awaiter(this, void 0, void 0, function* () {
             const createNewMemory = yield this.memoryRepository.create({
                 authorId,
@@ -32,6 +33,12 @@ class CreateMemoryUseCase {
                 yield this.addPeopleInMemoryUseCase.execute({
                     memoryId: createNewMemory.id,
                     usersInMemory
+                });
+            }
+            if (location) {
+                yield this.createMemoryLocationUseCase.execute({
+                    memoryId: createNewMemory.id,
+                    location: location
                 });
             }
             return createNewMemory;

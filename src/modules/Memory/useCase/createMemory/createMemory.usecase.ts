@@ -1,3 +1,4 @@
+import { CreateLocationUseCase } from "../../../Location/useCase/createLocation/createLocation.usecase";
 import { MemoryCreateDTO } from "../../dtos/MemoryCreateDTO";
 import { memoryUserResponseDTO } from "../../dtos/MemoryUserRequestDTO";
 import { IMemoryRepository } from "../../repositories/Memory.repository";
@@ -9,14 +10,16 @@ export class CreateMemoryUseCase {
         private memoryRepository: IMemoryRepository,
         private createMemoryMediaUseCase: CreateMemoryMediaUseCase,
         private addPeopleInMemoryUseCase: AddPeopleInMemoryUseCase,
+        private createMemoryLocationUseCase: CreateLocationUseCase,
     ){}
 
     async execute({
         authorId,
         name,
         medias,
-        usersInMemory
-    }: any): Promise<memoryUserResponseDTO> {
+        usersInMemory,
+        location
+    }: any): Promise<memoryUserResponseDTO | any> {
         const createNewMemory = await this.memoryRepository.create({
             authorId,
             name,  
@@ -33,6 +36,12 @@ export class CreateMemoryUseCase {
             await this.addPeopleInMemoryUseCase.execute({
                 memoryId: createNewMemory.id,
                 usersInMemory
+            })
+        }
+        if (location) {
+            await this.createMemoryLocationUseCase.execute({
+                memoryId: createNewMemory.id,
+                location: location
             })
         }
         

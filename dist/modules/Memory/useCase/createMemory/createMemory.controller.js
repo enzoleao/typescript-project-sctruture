@@ -17,17 +17,20 @@ const getIdFromToken_1 = require("../../../../service/getIdFromToken");
 const createMemoryMedia_usecase_1 = require("../createMemoryMedia/createMemoryMedia.usecase");
 const addPeopleInMemory_usecase_1 = require("../addPeoplesInMemory/addPeopleInMemory.usecase");
 const AddPeopleInMemory_repository_1 = require("../../repositories/implementations/AddPeopleInMemory.repository");
+const createLocation_usecase_1 = require("../../../Location/useCase/createLocation/createLocation.usecase");
+const Location_repository_1 = require("../../../Location/repositories/implementations/Location.repository");
 class CreateMemoryController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const createNewMemory = new createMemory_usecase_1.CreateMemoryUseCase(new Memory_repository_1.MemoryRepository, new createMemoryMedia_usecase_1.CreateMemoryMediaUseCase(new MemoryMedia_repository_1.CreateMemoryMedia), new addPeopleInMemory_usecase_1.AddPeopleInMemoryUseCase(new AddPeopleInMemory_repository_1.AddPeopleInMemoryRepository));
-            const { name, usersInMemory } = req.body;
+            const createNewMemory = new createMemory_usecase_1.CreateMemoryUseCase(new Memory_repository_1.MemoryRepository, new createMemoryMedia_usecase_1.CreateMemoryMediaUseCase(new MemoryMedia_repository_1.CreateMemoryMedia), new addPeopleInMemory_usecase_1.AddPeopleInMemoryUseCase(new AddPeopleInMemory_repository_1.AddPeopleInMemoryRepository), new createLocation_usecase_1.CreateLocationUseCase(new Location_repository_1.LocationRepository));
+            const { name, usersInMemory, location } = req.body;
             const { authorization } = req.headers;
             const authorId = yield (0, getIdFromToken_1.getIdFromToken)(authorization);
             const response = yield createNewMemory.execute({
                 authorId,
                 name,
-                usersInMemory
+                usersInMemory,
+                location
             });
             return res.json(response);
         });

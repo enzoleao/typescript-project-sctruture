@@ -874,6 +874,48 @@
             }
           }
         }
+      },
+      "/location?location={cityName}": {
+        "get": {
+          "description": "Deleta um lembrete da memória",
+          "tags": [
+            "Localização"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters":[
+            {
+              "in":"query",
+              "name":"cityName",
+              "schema":{
+                "items": {
+                  "type":"string"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Sugestao de cidades retornadas com sucesso.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GetLocationsResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Lembrete não localizado."
+            },
+            "500": {
+              "description": "Erro no servidor."
+            }
+          }
+        }
       }
     },
     "components": {
@@ -1407,6 +1449,21 @@
                 "eb51ab14-8e56-4170-87c8-436fca6a8312"
               ],
               "description":"Array com os Identificadores únicos dos usuarios que estão presente na memória"
+            },
+            "location": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "description": "Cidade da localizacao",
+                  "example": "Belem"
+                },
+                "state": {
+                  "type": "string",
+                  "description": "Estado da localizacao",
+                  "example": "Para"
+                }
+              }
             }
           },
           "required": [
@@ -1787,6 +1844,43 @@
             "createdAt": {
               "type":"datetime",
               "example":"2023-05-11T23:38:14.865Z"       
+            }
+          }
+        },
+        "GetLocationsResponse": {
+          "type": "object",
+          "properties": {
+            "Locations": {
+              "type": "array",
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "description": "Cidade",
+                  "example": "Belem"
+                },
+                "state": {
+                  "type": "string",
+                  "description": "Estado",
+                  "example": "Para"
+                },
+                "country": {
+                  "type": "string",
+                  "description": "Pais",
+                  "example": "Brasil"
+                }
+              },
+              "example":[
+                {
+                  "city":"Belem",
+                  "state":"Para",
+                  "country":"Brasil"
+                },
+                {
+                  "city":"Belem",
+                  "state":"Para",
+                  "country":""
+                }
+              ]
             }
           }
         }

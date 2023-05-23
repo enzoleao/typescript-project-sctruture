@@ -5,6 +5,7 @@ import authenticateRoutes from './authenticate.routes'
 import usersInMemory from './usersInMemory.routes';
 import reflectionsRouter from './reflections.routes';
 import stickyNotesRouter from './stickynotes.routes';
+import locationRouter from './location.routes';
 import { isAuthenticated } from '../middleware/isAuthenticated';
 import { Router } from 'express';
 
@@ -16,6 +17,7 @@ routes.use('/medias',isAuthenticated, mediasRoutes);
 routes.use('/usersinmemory',isAuthenticated, usersInMemory)
 routes.use('/reflections', isAuthenticated, reflectionsRouter)
 routes.use('/stickynotes', isAuthenticated, stickyNotesRouter)
+routes.use('/location', locationRouter)
 routes.use(authenticateRoutes)
 
 export default routes;
