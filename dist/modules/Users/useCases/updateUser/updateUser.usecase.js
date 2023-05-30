@@ -10,21 +10,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateUserUseCase = void 0;
-const AppError_1 = require("../../../../err/AppError");
+const bcrypt_1 = require("bcrypt");
 class UpdateUserUseCase {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
-    execute({ avatar, name, id }) {
+    execute({ id, email, name, username, number, birthday, password }) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const user = yield this.userRepository.findById(id);
-                const response = yield this.userRepository.update({ avatar, name, id });
-                return response;
-            }
-            catch (_a) {
-                throw new AppError_1.AppError("User not found", 404);
-            }
+            const user = yield this.userRepository.findById(id);
+            const hasChangePassword = password ? yield (0, bcrypt_1.hash)(password, 8) : undefined;
+            const response = yield this.userRepository.updateUser({ id, email, name, username, number, birthday, password: hasChangePassword });
+            return response;
         });
     }
 }

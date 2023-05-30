@@ -17,7 +17,7 @@ class CreateLocationController {
         return __awaiter(this, void 0, void 0, function* () {
             const createLocationUseCase = new createLocation_usecase_1.CreateLocationUseCase(new Location_repository_1.LocationRepository);
             const { location, memoryId } = req.body;
-            const response = createLocationUseCase.execute({ location, memoryId });
+            const response = yield createLocationUseCase.execute({ location, memoryId });
             return res.json(response);
         });
     }

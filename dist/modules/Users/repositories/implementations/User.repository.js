@@ -79,6 +79,36 @@ class UserRepository {
             };
         });
     }
+    updateUser({ id, email, name, username, number, birthday, password }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield prisma_1.prisma.user.findUniqueOrThrow({
+                where: {
+                    id
+                }
+            });
+            const response = yield prisma_1.prisma.user.update({
+                where: {
+                    id
+                },
+                data: {
+                    email: email ? email : user.email,
+                    name: name ? name : user.name,
+                    username: username ? username : user.username,
+                    number: number ? number : user.username,
+                    birthday: birthday ? birthday : user.birthday,
+                    password: password ? password : user.password
+                }
+            });
+            return {
+                id: response.id,
+                email: response.email,
+                name: response.name,
+                username: response.username,
+                number: response.number,
+                birthday: response.birthday,
+            };
+        });
+    }
     updateAvatar(user) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield prisma_1.prisma.user.update({
@@ -105,11 +135,6 @@ class UserRepository {
                 }
             });
             return response;
-        });
-    }
-    createUserAvatar({ avatar, userId }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            throw new Error("Method not implemented.");
         });
     }
     updateUserAvatar({ avatar, userId }) {

@@ -68,6 +68,7 @@ class MemoryRepository {
                             birthday: i.user.birthday,
                         };
                     }),
+                    location: i.location[0],
                     createdAt: i.createdAt
                 };
             })));
@@ -131,7 +132,7 @@ class MemoryRepository {
                             src: `${process.env.PROTOCOL}://${process.env.HOST}/${i.src}`
                         };
                     }),
-                    location: i.location,
+                    location: i.location[0],
                     createdAt: i.createdAt,
                 };
             })));

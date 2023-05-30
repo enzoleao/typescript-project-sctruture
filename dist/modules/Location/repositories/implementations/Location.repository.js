@@ -30,12 +30,6 @@ class LocationRepository {
             return response;
         });
     }
-    delete(location) {
-        throw new Error("Method not implemented.");
-    }
-    update(location) {
-        throw new Error("Method not implemented.");
-    }
     findList(location) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

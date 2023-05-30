@@ -117,6 +117,56 @@
             }
         },
         "/users/{userId}": {
+            "put": {
+                "description": "Atualiza o avatar do usuário.",
+                "tags": [
+                    "Usuários"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para alteração do avatar de um usuário (todos são opcionais)",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterUserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegisterUserResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Imagem não enviada."
+                    },
+                    "500": {
+                        "description": "Erro no servidor."
+                    }
+                }
+            },
             "delete": {
                 "description": "Deleta um lembrete da memória",
                 "tags": [
@@ -902,6 +952,47 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/GetLocationsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Lembrete não localizado."
+                    },
+                    "500": {
+                        "description": "Erro no servidor."
+                    }
+                }
+            }
+        },
+        "/location": {
+            "post": {
+                "description": "Deleta um lembrete da memória",
+                "tags": [
+                    "Localização"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para cadastro de um usuário",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateLocationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Localização cadastrada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateLocationResponse"
                                 }
                             }
                         }
@@ -1875,6 +1966,56 @@
                                 "country": ""
                             }
                         ]
+                    }
+                }
+            },
+            "CreateLocationRequest": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "object",
+                        "properties": {
+                            "city": {
+                                "type": "string",
+                                "description": "Cidade",
+                                "example": "Belém"
+                            },
+                            "state": {
+                                "type": "string",
+                                "description": "Estado",
+                                "example": "Pará"
+                            }
+                        }
+                    },
+                    "memoryId": {
+                        "type": "string",
+                        "description": "Identificador unico da memória",
+                        "example": "eb51ab14-8e56-4170-87c8-436fca6a8312"
+                    }
+                }
+            },
+            "CreateLocationResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "Identificador unico da localização",
+                        "example": "1"
+                    },
+                    "city": {
+                        "type": "number",
+                        "description": "Cidade",
+                        "example": "Belém"
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "Estado",
+                        "example": "Pará"
+                    },
+                    "memoryId": {
+                        "type": "string",
+                        "description": "Identificador unico da memória",
+                        "example": "ecee687f-7c7b-4143-a993-1a395c68f2f6"
                     }
                 }
             }

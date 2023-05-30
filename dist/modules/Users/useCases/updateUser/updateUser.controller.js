@@ -13,17 +13,19 @@ exports.UpdateUserController = void 0;
 const updateUser_usecase_1 = require("./updateUser.usecase");
 const User_repository_1 = require("../../repositories/implementations/User.repository");
 const getIdFromToken_1 = require("../../../../service/getIdFromToken");
+const AppError_1 = require("../../../../err/AppError");
 class UpdateUserController {
     handle(req, res) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            const updateUser = new updateUser_usecase_1.UpdateUserUseCase(new User_repository_1.UserRepository);
-            const id = yield (0, getIdFromToken_1.getIdFromToken)(req.headers.authorization);
-            const avatar = (_a = req.file) === null || _a === void 0 ? void 0 : _a.filename;
-            const { name } = req.body;
-            const response = yield updateUser.execute({
-                id, name, avatar
-            });
+            const updateUserUseCase = new updateUser_usecase_1.UpdateUserUseCase(new User_repository_1.UserRepository);
+            const { id } = req.params;
+            const { authorization } = req.headers;
+            const { email, name, username, number, birthday, password } = req.body;
+            const idVerify = yield (0, getIdFromToken_1.getIdFromToken)(authorization);
+            if (idVerify !== id) {
+                throw new AppError_1.AppError('Token não autorizado');
+            }
+            const response = yield updateUserUseCase.execute({ id, email, name, username, number, birthday, password });
             return res.json(response);
         });
     }
