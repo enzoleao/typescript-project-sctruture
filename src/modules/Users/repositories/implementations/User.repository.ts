@@ -71,7 +71,37 @@ export class UserRepository implements IUserRepository {
               
         }
     }
-
+    async updateUser({ id, email, name, username, number, birthday, password}:any): Promise<any | null> {
+        
+       const user = await prisma.user.findUniqueOrThrow({
+            where: {
+                id
+            }
+       }) 
+        const response = await prisma.user.update({
+            where: {
+                id
+            },
+            data: {
+                email: email ? email : user.email,
+                name: name? name : user.name,
+                username: username? username : user.username,
+                number:number ? number : user.username,
+                birthday: birthday? birthday : user.birthday,
+                password: password? password: user.password             
+            }
+        })
+        
+        return {
+            id: response.id,
+            email: response.email,
+            name: response.name,
+            username: response.username,
+            number: response.number,
+            birthday: response.birthday,
+        }
+        
+    }
     async updateAvatar(user: updateUserRequestDTO): Promise<updateUserResponseDTO | null> {
         
         const response = await prisma.user.update({
@@ -99,9 +129,6 @@ export class UserRepository implements IUserRepository {
         })
 
         return response
-    }
-    async createUserAvatar({ avatar, userId }: any): Promise<any> {
-        throw new Error("Method not implemented.");
     }
     async updateUserAvatar({ avatar, userId }: updateUserAvatarRequestDTO): Promise<any> {
         const response = await prisma.user.update({

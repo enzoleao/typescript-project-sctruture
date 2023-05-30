@@ -7,7 +7,7 @@ export class CreateLocationController {
         const createLocationUseCase = new CreateLocationUseCase(new LocationRepository)
 
         const { location, memoryId } = req.body
-        const response = createLocationUseCase.execute({location, memoryId})
+        const response = await createLocationUseCase.execute({location, memoryId})
         return res.json(response)
     }
 }

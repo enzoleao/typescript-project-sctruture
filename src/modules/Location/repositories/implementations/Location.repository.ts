@@ -6,6 +6,7 @@ import axios from "axios";
 import { prisma } from "../../../../prisma";
 
 export class LocationRepository implements ILocationRepository {
+
     async create({location, memoryId}: any): Promise<any> {
         console.log(memoryId)
         const response = await prisma.location.create({
@@ -17,12 +18,6 @@ export class LocationRepository implements ILocationRepository {
         })
         
         return response
-    }
-    delete(location: any): Promise<any> {
-        throw new Error("Method not implemented.");
-    }
-    update(location: any): Promise<any> {
-        throw new Error("Method not implemented.");
     }
     async findList(location: string): Promise<any> {
         try {
