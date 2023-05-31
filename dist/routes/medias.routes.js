@@ -11,6 +11,6 @@ const deleteMediasMemory_controller_1 = require("../modules/Memory/useCase/delet
 const mediasRouter = (0, express_1.Router)();
 const createMemoryMedia = new createMemoryMedia_controller_1.CreateMemoryMediaController();
 const deleteMemoryMedia = new deleteMediasMemory_controller_1.DeleteMemoryMediaController();
-mediasRouter.post('/', (0, multer_1.default)(avatar_1.uploadAvatar.getConfig).array("medias"), createMemoryMedia.handle);
+mediasRouter.put('/:memoryId', (0, multer_1.default)(avatar_1.uploadAvatar.getConfig).array("medias"), createMemoryMedia.handle);
 mediasRouter.delete('/:memoryId', deleteMemoryMedia.handle);
 exports.default = mediasRouter;

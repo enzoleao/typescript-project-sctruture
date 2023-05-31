@@ -453,9 +453,9 @@
           }
         }
       },
-      "/medias": {
-        "post": {
-          "description": "O usuário adiciona medias à sua lembrança ex: fotos e videos.",
+      "/medias/{mediaId}": {
+        "put": {
+          "description": "Atualiza as medias de uma memória",
           "tags": [
             "Memorias"
           ],
@@ -464,38 +464,46 @@
               "bearerAuth": []
             }
           ],
+          "parameters":[
+            {
+              "in":"path",
+              "name":"mediaId",
+              "schema":{
+                "items": {
+                  "type":"string"
+                }
+              }
+            }
+          ],
           "requestBody": {
-            "description": "O usuário adiciona midias em sua memória.",
+            "description": "Dados necessários para atualizar medias da memoria",
             "content": {
               "multipart/form-data": {
                 "schema": {
                   "$ref": "#/components/schemas/CreateMemoryMediaRequest"
                 }
-                
               }
             }
           },
           "responses": {
             "200": {
-              "description": "Medias subidas resposta.",
+              "description": "Sticky Notes atualizado com sucesso.",
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/CreateMemoryMediaResponse"
+                    "$ref": "#/components/schemas/UpdateStickyNotesResponse"
                   }
                 }
               }
             },
             "400": {
-              "description": "Ocorreu algum erro."
+              "description": "Usuário ou memória não localizada."
             },
             "500": {
               "description": "Erro no servidor."
             }
           }
-        }
-      },
-      "/medias/{mediaId}": {
+        },
         "delete": {
           "description": "Deleta mídia de uma memória.",
           "tags": [
@@ -1685,11 +1693,6 @@
         "CreateMemoryMediaRequest": {
           "type": "object",
           "properties": {
-            "memoryId": {
-              "type": "number",
-              "description": "Identificador unico da memória",
-              "example": "1"
-            },
             "medias": {
               "type":"array",
               "items": {

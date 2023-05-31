@@ -7,7 +7,7 @@ export class CreateMemoryMediaController {
         const createeMemoryMedia = new CreateMemoryMediaUseCase(new CreateMemoryMedia)
         
         const medias = req.files
-        const { memoryId } = req.body
+        const { memoryId } = req.params
         const response = await createeMemoryMedia.execute({memoryId, medias})
         return res.json(response)
     }

@@ -11,7 +11,7 @@ const createMemoryMedia = new CreateMemoryMediaController()
 const deleteMemoryMedia = new DeleteMemoryMediaController()
 
 
-mediasRouter.post('/', multer(uploadAvatar.getConfig).array("medias"), createMemoryMedia.handle)
+mediasRouter.put('/:memoryId', multer(uploadAvatar.getConfig).array("medias"), createMemoryMedia.handle)
 mediasRouter.delete('/:memoryId', deleteMemoryMedia.handle)
 
 export default mediasRouter;

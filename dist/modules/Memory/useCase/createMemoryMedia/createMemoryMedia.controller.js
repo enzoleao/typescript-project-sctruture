@@ -17,7 +17,7 @@ class CreateMemoryMediaController {
         return __awaiter(this, void 0, void 0, function* () {
             const createeMemoryMedia = new createMemoryMedia_usecase_1.CreateMemoryMediaUseCase(new MemoryMedia_repository_1.CreateMemoryMedia);
             const medias = req.files;
-            const { memoryId } = req.body;
+            const { memoryId } = req.params;
             const response = yield createeMemoryMedia.execute({ memoryId, medias });
             return res.json(response);
         });
