@@ -32,13 +32,10 @@ export class MemoryRepository implements IMemoryRepository {
                 id: i.id,
                 name: i.name,
                 author: {
-                    id: i.author.id,
                     avatar: `${process.env.PROTOCOL}://${process.env.HOST}/${i.author.avatar}`,
                     email: i.author.email,
                     name: i.author.name,
                     username: i.author.username,
-                    number: i.author.number,
-                    birthday: i.author.birthday
                 },
                 reflections: i.reflections.map((i: any)=>{
                     return {
@@ -61,7 +58,10 @@ export class MemoryRepository implements IMemoryRepository {
                         birthday: i.user.birthday,
                     }
                 }),
-                location: i.location[0],
+                location: {
+                    city: i.location[0]?.city,
+                    state: i.location[0]?.state
+                },
                 createdAt: i.createdAt
             }
         }))
