@@ -116,6 +116,45 @@
           }
         }
       },
+      "/users?userInitials={userInitials}": {
+        "get": {
+          "description": "Busca os usuários pelas inicias do nome",
+          "tags": [
+            "Usuários"
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters":[
+            {
+              "in":"query",
+              "name":"userInitials",
+              "schema":{
+                "items": {
+                  "type":"string"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Usuários retornados com sucesso.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GetAllUsersResponse"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Erro no servidor."
+            }
+          }
+        }
+      },
       "/users/{userId}": {
         "put": {
           "description": "Atualiza o avatar do usuário.",
@@ -1192,11 +1231,6 @@
                   "example": "2011-10-05T14:48:00.000Z"
                 }
               }
-            },
-            "token": {
-              "type": "string",
-              "description": "Token concedido ao usuário logado",
-              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzY3Mjc4MzQsImV4cCI6MTY3NjgxNDIzNCwic3ViIjoiOSJ9.dhue4XHYW4mNBGqKfrp6QG15xO3QcieGvzSAjbXdizw"
             }
           }
         },

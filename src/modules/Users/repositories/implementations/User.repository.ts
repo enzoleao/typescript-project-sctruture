@@ -9,6 +9,38 @@ import { updateUserAvatarRequestDTO } from "../../dtos/updateUserAvatarRequestDT
 
 
 export class UserRepository implements IUserRepository {
+    async findByInitials(initials: any): Promise<any | null> {
+        if (initials && initials !== '{userInitials}'){
+            
+            const response = await prisma.user.findMany({
+                where: {
+                    name: {
+                        startsWith: initials,
+                        mode: 'insensitive'
+                    }
+                }
+            })
+            return response.map((i)=>{
+                return {
+                    id: i.id,
+                    name: i.name,
+                    email: i.email,
+                    birthday: i.birthday,
+                    avatar: `${process.env.PROTOCOL}://${process.env.HOST}/${i.avatar}`
+                }
+            })
+        }
+        const response = await prisma.user.findMany()
+            return response.map((i)=>{
+                return {
+                    id: i.id,
+                    name: i.name,
+                    email: i.email,
+                    birthday: i.birthday,
+                    avatar: `${process.env.PROTOCOL}://${process.env.HOST}/${i.avatar}`
+                }
+            })
+    }
     async delete(id: string): Promise<User | null> {
         const response = await prisma.user.delete({
             where:{
