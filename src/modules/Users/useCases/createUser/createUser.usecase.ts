@@ -1,6 +1,6 @@
 import { hash } from "bcrypt";
 import { IUserRepository } from "../../repositories/User.repository";
-import { createUserRequestDTO } from '../../dtos/createUserRequestDTO'
+import { createUserRequestDTO } from '../../dtos/CreateUserDTO'
 import { createUserResponseDTO } from '../../dtos/createUserResponseDTO'
 import { AppError } from "../../../../err/AppError";
 import fs from 'fs'

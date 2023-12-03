@@ -1,23 +1,8 @@
-import usersRouter from './users.routes';
-import memoryRouter from './memory.routes';
-import mediasRoutes from './medias.routes'
-import authenticateRoutes from './authenticate.routes'
-import usersInMemory from './usersInMemory.routes';
-import reflectionsRouter from './reflections.routes';
-import stickyNotesRouter from './stickynotes.routes';
-import locationRouter from './location.routes';
-import { isAuthenticated } from '../middleware/isAuthenticated';
-import { Router } from 'express';
+import usersRouter from './users.routes'
+import { Router } from 'express'
 
-const routes = Router();
+const routes = Router()
 
-routes.use('/users', usersRouter);
-routes.use('/memories',isAuthenticated, memoryRouter)
-routes.use('/medias',isAuthenticated, mediasRoutes);
-routes.use('/usersinmemory',isAuthenticated, usersInMemory)
-routes.use('/reflections', isAuthenticated, reflectionsRouter)
-routes.use('/stickynotes', isAuthenticated, stickyNotesRouter)
-routes.use('/location', locationRouter)
-routes.use(authenticateRoutes)
+routes.use('/users', usersRouter)
 
-export default routes;
+export default routes
