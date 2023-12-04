@@ -12,6 +12,49 @@ datasource db {
 
 model User {
   id String @id @default(uuid())
-  email String @unique
   name String
+  role_id Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  role    Roles    @relation(fields: [role_id], references: [id], onDelete: Cascade)
+
+  @@map("users")
+}
+
+model Roles {
+  id Int @id @default(autoincrement())
+  name String
+  users User[]
+  permissions RolesHasPermissions[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("roles")
+}
+
+model Permissions {
+  id Int @id @default(autoincrement())
+  name String
+  resource String
+  type String
+  roles RolesHasPermissions[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("permissions")
+}
+
+model RolesHasPermissions {
+  roleId Int @map("role_id")
+  permissionId Int @map("permission_id")
+
+  role       Roles     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permissions @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@map("roles_has_permissions")
 }
