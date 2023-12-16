@@ -21,7 +21,7 @@ Estrutura básica para realização de projetos em Node.js, resolvi criar esta b
 ---
 
 ### Como rodar o projeto
-será necessário ter uma versão recente do Node instalada no seu computador junto a ele o Docker para o banco de dados
+será necessário ter uma versão recente do Node instalada no seu computador junto a ele o Docker e Docker Compose para subir os containers do BD
 
 Rodar os containers do MySQL
 
@@ -42,7 +42,11 @@ e após as migrations, rodar os seeders
 ```
 npx prisma db seed
 ```
+Para acessar as documentações do projeto acesse
 
+```
+http://localhost:3001/api-docs/#/
+```
 ### Features
 #### Rotas
 
