@@ -13,7 +13,11 @@ datasource db {
 model User {
   id String @id @default(uuid())
   name String
-  role_id Int
+  email String @unique
+  password String
+  role_id Int @default(2)
+  permissionCreated RolesHasPermissions[] @relation(name: "CreatorUserId")
+  permissionsUpdated RolesHasPermissions[] @relation(name: "UpdaterUserId")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
@@ -26,6 +30,7 @@ model User {
 model Roles {
   id Int @id @default(autoincrement())
   name String
+  hasAllPermissions Boolean @default(false) @map("has_all_permissions")
   users User[]
   permissions RolesHasPermissions[]
   createdAt DateTime @default(now()) @map("created_at")
@@ -51,10 +56,18 @@ model Permissions {
 model RolesHasPermissions {
   roleId Int @map("role_id")
   permissionId Int @map("permission_id")
+  userCreatorId String? @map("user_creator_id")
+  userUpdaterId String? @map("user_updater_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
   role       Roles     @relation(fields: [roleId], references: [id], onDelete: Cascade)
   permission   Permissions @relation(fields: [permissionId], references: [id], onDelete: Cascade)
-
+  
+  userCreator User? @relation(name: "CreatorUserId",fields: [userCreatorId], references: [id], onDelete: Cascade)
+  userUpdater User? @relation(name: "UpdaterUserId",fields: [userUpdaterId], references: [id], onDelete: Cascade)
+  
   @@id([roleId, permissionId])
   @@map("roles_has_permissions")
 }

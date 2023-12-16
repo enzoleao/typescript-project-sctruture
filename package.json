@@ -7,6 +7,9 @@
     "dev": "ts-node-dev --inspect --transpile-only --trace-warnings --ignore-watch node_modules src/server.ts",
     "build": "tsc && node ./dist/server.js"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
     "@types/bcrypt": "^5.0.0",
@@ -21,7 +24,7 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "@prisma/client": "^4.13.0",
+    "@prisma/client": "^5.7.0",
     "@types/uuid": "^9.0.1",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",

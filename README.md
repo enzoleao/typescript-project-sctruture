@@ -1,5 +1,4 @@
-<h1 align="center">Back end do aplicativo memories</h1>
-<p align="center">API em Node.js para um aplicativo de gerenciamento de memórias</p>
+<h1 align="center">Estrutura padrão para criação de aplicações utilizando</h1>
 <img src="https://img.shields.io/badge/NODEJS-WORK-green">
 
 # Lista de conteúdos
@@ -17,53 +16,48 @@
 
 ### 💻 Sobre
 
-API em Node.js para um aplicativo de memórias
+Estrutura básica para realização de projetos em Node.js, resolvi criar esta base para que meus projetos sigam um padrão de desenvolvimento e junto a ele a busca por uma escalabilidade. De inicio implementarei algumas features relacionadas a permissões de usuários para que ocorra um manuseio interativo ao banco de dados.
 
 ---
+
+### Como rodar o projeto
+será necessário ter uma versão recente do Node instalada no seu computador junto a ele o Docker para o banco de dados
+
+Rodar os containers do MySQL
+
+```
+sudo docker-compose up -d --build local_mysql
+```
+Intalar as dependências do projeto
+
+```
+npm install
+```
+Após instalar as dependências, rodas as migrations
+
+```
+npx prisma migrate dev
+```
+e após as migrations, rodar os seeders
+```
+npx prisma db seed
+```
 
 ### Features
 #### Rotas
 
 ##### Users
 
-- [x] GET /users  📚
-- [x] POST /users 📚
-- [x] POST /sessions 📚
-- [x] GET /me 📚
-- [x] PUT /avatar/{userId} 📚
-
-
-##### Memorias
-- [x] GET /memories 📚
-- [x] POST /memories 📚
-- [x] PUT /memories📚
-- [x] DELETE /memories 📚
-
-##### Midias
-- [x] POST /medias 📚
-- [x] DELETE /medias📚
-
-##### Adicionar e/ou remover usuários da memória
-- [x] POST /usersinmemory 📚
-- [x] DELETE /usersinmemory 📚
-
-##### Reflexões da memória
-- [x] POST /reflections 📚
-- [x] PUT /reflections
-- [x] DELETE /reflections 📚
+- [x] GET /users  📜
+- [x] POST /users 📜
+- [x] POST /users/auth 📜
 
 
 #### Funcionalidades
-- [x] Integração com banco de dados PostgreSQL
-- [x] Registro de usuário
-- [x] Rota de autenticação0 de usuário
-- [x] Atualização de avatar do usuário
-- [x] Criação de memória
-- [x] Atualização de memória
-- [x] Rota para adicionar mídias a memória
-- [x] Rota para deletar mídias da memória.
-- [x] Registro de usuário
-- [x] Autenticação das rotas
+- [x] Integração com banco de dados  MySQL.
+- [x] Registro de usuário.
+- [x] Rota de autenticação de usuário.
+- [x] Middleware de validação de token e junto a ele as permissões do usuário.
 
 
 ### 🛠 Tecnologias
@@ -80,7 +74,6 @@ API em Node.js para um aplicativo de memórias
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - [express-async-errors](https://www.npmjs.com/package/express-async-errors)
 - [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)
-- [Multer](https://www.npmjs.com/package/multerg)
 - [VSCode](https://code.visualstudio.com/)
 ---
 

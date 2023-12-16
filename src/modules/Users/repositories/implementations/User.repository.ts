@@ -3,27 +3,33 @@ import { IUserRepository } from '../User.repository'
 import {
   CreateUserRequestDTO,
   CreateUserResponseDTO,
-} from '../../dtos/CreateUserDTO'
+} from '../../dtos/createUser.dto'
+import { User } from '@prisma/client'
 
 export class UserRepository implements IUserRepository {
   async create(user: CreateUserRequestDTO): Promise<CreateUserResponseDTO> {
-    const response = await prisma.user.create({
+    const { name, email, password } = user
+    const userCreated = await prisma.user.create({
       data: {
-        email: user.email,
-        name: user.name,
-        username: user.username,
-        number: user.number,
-        birthday: user.birthday,
-        password: user.password,
+        name,
+        email,
+        password,
       },
     })
-    return {
-      id: response.id,
-      name: response.name,
-      email: response.email,
-      username: response.username,
-      number: response.number,
-      birthday: response.birthday,
-    }
+    return { ...userCreated, password: undefined }
+  }
+
+  async findUserByEmail(email: string): Promise<User | null> {
+    const user = await prisma.user.findUniqueOrThrow({
+      where: {
+        email,
+      },
+    })
+    return user
+  }
+
+  async findUsers(): Promise<User[]> {
+    const users = await prisma.user.findMany()
+    return users
   }
 }
